@@ -16,7 +16,9 @@ const windows = {};
 protocol.registerStandardSchemes(['app'], { secure: true });
 function createWindow() {
 	// Create the browser window.
-	const win = new BrowserWindow({ width: 800, height: 600 });
+	const geometry = isDevelopment ?
+			{ width: 1600, height: 600 } : { width: 800, height: 600 }
+	const win = new BrowserWindow(geometry);
 	const id = Object.keys(windows).length;
 	windows[id] = win;
 
