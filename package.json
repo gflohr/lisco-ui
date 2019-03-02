@@ -16,7 +16,6 @@
   "dependencies": {
     "chai-as-promised": "^7.1.1",
     "electron": "^4.0.0",
-    "photonkit": "^0.1.2",
     "vue": "^2.6.6",
     "vue-cli-plugin-electron-builder": "^1.1.0",
     "vuex": "^3.0.1"
