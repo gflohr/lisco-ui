@@ -29,16 +29,9 @@ th {
 	grid-column: 1 / 4;
 }
 
-.player-info-top {
+.player-infos {
 	grid-column: 1 / 2;
-	grid-row: 2 / 3;
-	align-self: start;
-}
-
-.player-info-bottom {
-	grid-column: 1 / 2;
-	grid-row: 3 / 4;
-	align-self: end;
+	grid-row: 2 / 4;
 }
 
 .board {
@@ -76,6 +69,20 @@ th {
 }
 
 /* Player info.  */
+.player-infos {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	background: linear-gradient(black, white, white);
+}
+
+.player-info-top {
+	align-self: start;
+}
+
+.player-info-bottom {
+	align-self: end;
+}
+
 .player-info {
 	display: grid;
 	grid-template-columns: min-content 1fr;
@@ -117,12 +124,10 @@ th {
 
 .player-info-white {
 	color: black;
-	background-color: white;
 }
 
 .player-info-black {
 	color: white;
-	background-color: black;
 }
 
 		</style>
@@ -130,7 +135,7 @@ th {
 	<body>
 		<div class="window">
 			<div class="wrapper window-content">
-				<header class="toolbar toolbar-header">
+				<header id="header" class="toolbar toolbar-header">
 					<h1 class="title">Jane Appleseed vs. John Doe</h1>
 					<div class="toolbar-actions">
 						<div class="btn-group">
@@ -143,17 +148,19 @@ th {
 						</div>
 					</div>
 				</header>
-				<div class="player-info player-info-top player-info-black">
-					<div class="player-info-name">John Doe</div>
-					<div class="icon icon-clock"></div>
-					<div class="player-info-time-left">01:05:15</div>
-					<div class="player-info-time-elapsed">01:03:12</div>
-				</div>
-				<div class="player-info player-info-bottom player-info-white">
-					<div class="player-info-name">Jane Appleseed</div>
-					<div class="icon icon-clock"></div>
-					<div class="player-info-time-left">00:05:45</div>
-					<div class="player-info-time-elapsed">00:07:48</div>
+				<div class="player-infos">
+					<div class="player-info player-info-top player-info-black">
+						<div class="player-info-name">John Doe</div>
+						<div class="icon icon-clock"></div>
+						<div class="player-info-time-left">01:05:15</div>
+						<div class="player-info-time-elapsed">01:03:12</div>
+					</div>
+					<div class="player-info player-info-bottom player-info-white">
+						<div class="player-info-name">Jane Appleseed</div>
+						<div class="icon icon-clock"></div>
+						<div class="player-info-time-left">00:05:45</div>
+						<div class="player-info-time-elapsed">00:07:48</div>
+					</div>
 				</div>
 				<div class="board blue merida" id="board">
 					<div class="cg-board-wrap" id="chessground"></div>
@@ -195,7 +202,7 @@ th {
 					<div class="toolbar"><h1 class="title">Comment</h1></div>
 					<div>What a blunder!</div>
 				</div>
-			<footer class="footer toolbar toolbar-footer">
+			<footer id="footer" class="footer toolbar toolbar-footer">
 					<div class="toolbar-actions">
 						<input id="fen" type="text" disabled="disabled"
 						       size="120"
@@ -210,16 +217,26 @@ th {
 		<script src="/node_modules/chessground/dist/chessground.js"></script>
 		<script>
 function resizeBoard() {
-	return;
-	const board = document.getElementById('board');
-	const style = board.currentStyle || window.getComputedStyle(board);
-	const coords_ranks = document.getElementsByClassName('ranks')[0];
-	const coords_files = document.getElementsByClassName('files')[0];
-	
-	const width = board.clientWidth + 2 * parseFloat(style.marginLeft, 10)
-			- 2 * coords_ranks.clientWidth;
-	const height = board.clientHeight + 2 * parseFloat(style.marginTop, 10)
-			- 2 * coords_files.clientHeight;
+	const body = document.getElementsByTagName('body')[0];
+	const bodyWidth = body.offsetWidth;
+	const bodyHeight = body.offsetHeight;
+	const playerInfos = document.getElementsByClassName('player-infos')[0];
+	const playerInfosWidth = playerInfos.offsetWidth;
+	const moves = document.getElementsByClassName('moves')[0];
+	const movesWidth = playerInfos.offsetWidth;
+	const header = document.getElementById('header');
+	const headerHeight = header.offsetHeight;
+	const footer = document.getElementById('footer');
+	const footerHeight = footer.offsetHeight;
+
+	const coordsRanks = document.getElementsByClassName('ranks')[0];
+	const coordsFiles = document.getElementsByClassName('files')[0];
+
+	const width = bodyWidth - playerInfosWidth - movesWidth
+		- 2 * coordsRanks.offsetWidth;
+	const height = bodyHeight - headerHeight - footerHeight
+		- 2 * coordsFiles.offsetHeight;
+
 	const size = Math.min(width, height);
 	let chessground = document.getElementById('chessground');
 	chessground.style.width = size + 'px';
