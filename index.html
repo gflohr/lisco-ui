@@ -21,12 +21,12 @@ th {
 .wrapper {
 	display: grid;
 	height: 100%;
-	grid-template-columns: auto 1fr auto;
+	grid-template-columns: auto auto min-content 1fr;
 	grid-template-rows: min-content 1fr 1fr min-content;
 }
 
 .toolbar {
-	grid-column: 1 / 4;
+	grid-column: 1 / 5;
 }
 
 .player-infos {
@@ -45,15 +45,17 @@ th {
 .moves {
 	grid-column: 3 / 4;
 	grid-row: 2 / 3;
+	padding-left: 1em;
 }
 
 .comment-area {
 	grid-column: 3 / 4;
 	grid-row: 3 / 4;
+	padding-left: 1em;
 }
 
 .footer {
-	grid-column: 1 / 4;
+	grid-column: 1 / 5;
 	grid-row: 4 / 5;
 	justify-self: stretch;
 	align-self: end;
@@ -73,6 +75,7 @@ th {
 	display: grid;
 	grid-template-rows: 1fr 1fr;
 	background: linear-gradient(black, white, white);
+	justify-self: end;
 }
 
 .player-info-top {
