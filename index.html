@@ -17,10 +17,11 @@ th {
 	font-weight: bold;
 }
 
+/* Grid layout.  */
 .wrapper {
 	display: grid;
 	height: 100%;
-	grid-template-columns: 1fr min-content;
+	grid-template-columns: min-content 1fr min-content;
 	grid-template-rows: min-content auto min-content;
 }
 
@@ -41,7 +42,6 @@ th {
 .board {
 	grid-column: 2 / 3;
 	grid-row: 2 / 4;
-	margin: auto;
 }
 
 .moves {
@@ -51,6 +51,7 @@ th {
 .footer {
 	grid-column: 1 / 4;
 }
+/* End of grid layout.  */
 
 .footer {
 	background-color: grey;
@@ -65,13 +66,27 @@ th {
 	margin-left: 20em;
 }
 
+.player-info-name {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.player-info-white {
+	color: black;
+	background-color: white;
+}
+
+.player-info-black {
+	color: white;
+	background-color: black;
+}
 		</style>
 	</head>
 	<body>
 		<div class="window">
 			<div class="wrapper window-content">
 				<header class="toolbar toolbar-header">
-					<h1 class="title">Foo vs. Bar</h1>
+					<h1 class="title">Jane Appleseed vs. John Doe</h1>
 					<div class="toolbar-actions">
 						<div class="btn-group">
 							<button class="btn btn-default">
@@ -83,17 +98,17 @@ th {
 						</div>
 					</div>
 				</header>
-				<div class="player-info player-info-top">
-					<div>John Doe</div>
+				<div class="player-info player-info-top player-info-black">
+					<div class="player-info-name">John Doe</div>
 					<span class="icon icon-clock"></span>
-					<div>01:05:15</div>
-					<div>01:03:12</div>
+					<div class="player-info-time-left">01:05:15</div>
+					<div class="player-info-time-elapsed">01:03:12</div>
 				</div>
-				<div class="player-info player-info-bottom">
-					<div>Jane Appleseed</div>
+				<div class="player-info player-info-bottom player-info-white">
+					<div class="player-info-name">Jane Appleseed</div>
 					<span class="icon icon-clock"></span>
-					<div>00:05:45</div>
-					<div>00:07:48</div>
+					<div class="player-info-time-left">00:05:45</div>
+					<div class="player-info-time-elapsed">00:07:48</div>
 				</div>
 				<div class="board blue merida" id="board">
 					<div class="cg-board-wrap" id="chessground"></div>
@@ -105,16 +120,6 @@ th {
 								<th></th>
 								<th>White</th>
 								<th>Black</th>
-							</tr>
-							<tr>
-								<th></th>
-								<th>01:05:15</th>
-								<th>01:03:12</th>
-							</tr>
-							<tr>
-								<th></th>
-								<th>00:05:45</th>
-								<th>00:07:48</th>
 							</tr>
 						</thead>
 						<tbody>
