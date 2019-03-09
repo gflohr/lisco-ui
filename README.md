@@ -1,5 +1,7 @@
 # lisco
 
+Lisco wants to be a cross-platform chess UI in the future.
+
 ## Project setup
 ```
 npm install
