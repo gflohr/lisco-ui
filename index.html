@@ -21,8 +21,8 @@ th {
 .wrapper {
 	display: grid;
 	height: 100%;
-	grid-template-columns: auto 1fr min-content;
-	grid-template-rows: min-content auto min-content;
+	grid-template-columns: auto 1fr auto;
+	grid-template-rows: min-content 1fr 1fr min-content;
 }
 
 .toolbar {
@@ -94,8 +94,9 @@ th {
 	grid-row: 2 / 4;
 	align-self: center;
 	font-size: 300%;
-	margin: 0.6rem;
-s}
+	margin-left: 0.6rem;
+	margin-right: 0.6rem;
+}
 
 .player-info-time-left {
 	grid-column: 2 / 3;
@@ -109,6 +110,7 @@ s}
 }
 
 .player-info-name {
+	justify-self: center;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -116,7 +118,7 @@ s}
 .player-info-white {
 	color: black;
 	background-color: white;
-	border: 1px solid black;
+	border: 1px solid grey;
 }
 
 .player-info-black {
@@ -162,9 +164,9 @@ s}
 					<table class="table-striped">
 						<thead>
 							<tr>
-								<th></th>
-								<th>White</th>
-								<th>Black</th>
+								<th class="toolbar"></th>
+								<th class="toolbar"><h1 class="title">White</h1></th>
+								<th class="toolbar"><h1 class="title">Black</h1></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -192,7 +194,8 @@ s}
 					</table>
 				</div>
 				<div class="comment-area">
-					Comment ...
+					<div class="toolbar"><h1 class="title">Comment</h1></div>
+					<div>What a blunder!</div>
 				</div>
 			<footer class="footer toolbar toolbar-footer">
 					<div class="toolbar-actions">
