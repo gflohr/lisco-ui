@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-compatible" content="IE=edge">
+		<title>Grid Layout</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="/node_modules/photonkit/dist/css/photon.css" />
+		<link rel="stylesheet" href="/public/chessground/chessground.css" />
+		<link rel="stylesheet" href="/public/chessground/theme.css" />
+		<style>
+html, body {
+	height: 100%
+}
+
+th {
+	font-weight: bold;
+}
+
+.wrapper {
+	display: grid;
+	height: 100%;
+	grid-template-columns: 1fr min-content;
+	grid-template-rows: min-content auto min-content;
+}
+
+.toolbar {
+	grid-column: 1 / 3;
+}
+
+.board {
+	margin: auto;
+}
+
+.moves {
+}
+
+.cg-board-wrap coords {
+	font-size: 13px;
+}
+
+.footer {
+	grid-column: 1 / 3;
+	background-color: grey;
+	justify-self: stretch;
+}
+
+.footer.toolbar-actions {
+	margin-left: 20em;
+}
+
+		</style>
+	</head>
+	<body>
+		<div class="window">
+			<div class="wrapper window-content">
+				<header class="toolbar toolbar-header">
+					<h1 class="title">Foo vs. Bar</h1>
+					<div class="toolbar-actions">
+						<div class="btn-group">
+							<button class="btn btn-default">
+								<span class="icon icon-home"></span>
+							</button>
+							<button class="btn btn-default">
+								<span class="icon icon-folder"></span>
+							</button>
+						</div>
+					</div>
+				</header>
+				<div class="board blue merida" id="board">
+					<div class="cg-board-wrap" id="chessground"></div>
+				</div>
+				<div class="moves">
+					<table class="table-striped">
+						<thead>
+							<tr>
+								<th></th>
+								<th>White</th>
+								<th>Black</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>01:05:15</th>
+								<th>01:03:12</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>00:05:45</th>
+								<th>00:07:48</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td>e2-e4</td>
+								<td>e7-e5</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td>Ng1-f3</td>
+								<td>Nb3-c6</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td>Lf1-c4</td>
+								<td>Lf8-c5</td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td>d2-d3</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<footer class="footer toolbar toolbar-footer">
+					<div class="toolbar-actions">
+						<input id="fen" type="text" disabled="disabled"
+						       size="120"
+						       value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" />
+						<button class="btn btn-default">
+							Copy
+						</button>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<script src="/node_modules/chessground/dist/chessground.js"></script>
+		<script>
+function resizeBoard() {
+	const board = document.getElementById('board');
+	const style = board.currentStyle || window.getComputedStyle(board);
+	const coords_ranks = document.getElementsByClassName('ranks')[0];
+	const coords_files = document.getElementsByClassName('files')[0];
+	
+	const width = board.clientWidth + 2 * parseFloat(style.marginLeft, 10)
+			- 2 * coords_ranks.clientWidth;
+	const height = board.clientHeight + 2 * parseFloat(style.marginTop, 10)
+			- 2 * coords_files.clientHeight;
+	const size = Math.min(width, height);
+	let chessground = document.getElementById('chessground');
+	chessground.style.width = size + 'px';
+	chessground.style.height = size + 'px';
+	document.body.dispatchEvent(new Event('chessground.resize'));
+}
+
+var cg = Chessground(document.getElementById('chessground'));
+window.onresize = resizeBoard;
+resizeBoard();
+
+		</script>
+	</body>
+</html>
