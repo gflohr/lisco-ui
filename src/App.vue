@@ -7,6 +7,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
+import Split from 'split.js';
 
 export default {
 	name: 'app',
