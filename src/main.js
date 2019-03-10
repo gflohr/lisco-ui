@@ -3,6 +3,8 @@ import App from './App.vue';
 import store from './store';
 
 import '../node_modules/photonkit/dist/css/photon.css';
+import './assets/scss/chessground/chessground.scss';
+import './assets/scss/chessground/theme.scss';
 import './assets/scss/lisco.scss';
 
 Vue.config.productionTip = false;
