@@ -20,6 +20,7 @@
     "photonkit": "^0.1.2",
     "split.js": "^1.5.10",
     "vue": "^2.6.6",
+    "vue-chessboard": "^0.6.4",
     "vue-cli-plugin-electron-builder": "^1.1.0",
     "vuex": "^3.0.1"
   },
