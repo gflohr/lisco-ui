@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="board blue merida" id="board">
-				<chessboard></chessboard>
+				<ChessBoard/>
 			</div>
 			<div class="moves">
 				<table class="table-striped">
@@ -83,13 +83,12 @@
 </template>
 
 <script>
-import { chessboard } from 'vue-chessboard';
-import 'vue-chessboard/dist/vue-chessboard.css';
+import ChessBoard from './components/ChessBoard.vue';
 
 export default {
 	name: 'app',
 	components: {
-		chessboard,
+		ChessBoard,
 	},
 };
 </script>

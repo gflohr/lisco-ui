@@ -42,7 +42,7 @@ new Vue({
 	render: h => h(App),
 	mounted() {
 		// FIXME! That doesn't belong here!
-		window.addEventListener('load', resizeBoard);
-		window.addEventListener('resize', resizeBoard);
+		//window.addEventListener('load', resizeBoard);
+		//window.addEventListener('resize', resizeBoard);
 	},
 }).$mount('#app');
