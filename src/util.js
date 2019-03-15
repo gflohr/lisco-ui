@@ -17,7 +17,7 @@ export function timestamp() {
 
 export function playOtherSide(cg, chess) {
 	return (orig, dest) => {
-		chess.move({from: orig, to: dest});
+		const move = chess.move({from: orig, to: dest});
 		cg.set({
 			turnColor: toColor(chess),
 			movable: {
