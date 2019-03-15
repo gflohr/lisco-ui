@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="board blue merida" id="board">
-				<chess-board :chess-game="game"/>
+				<chess-board :chess-game="chess"/>
 			</div>
 			<div class="moves">
 				<table class="table-striped">
@@ -92,7 +92,7 @@ export default {
 		ChessBoard,
 	},
 	created() {
-		this.game = new Chess();
+		this.chess = new Chess();
 	},
 };
 </script>
