@@ -37,22 +37,20 @@ function resizeBoard() {
 	document.body.dispatchEvent(new Event('chessground.resize'));
 }
 
-export function toDests(chess) {
-	const dests = {};
-	chess.SQUARES.forEach((s) => {
-		const ms = chess.moves({ square: s, verbose: true });
-		if (ms.length) dests[s] = ms.map(m => m.to);
-	});
-	return dests;
-}
-
 export default {
 	name: 'ChessBoard',
 	props: {
 		'chess-game': Object,
 	},
-	foobar() {
-		alert('foobar');
+	methods: {
+		toDests(chess) {
+			const dests = {};
+			chess.SQUARES.forEach((s) => {
+				const ms = chess.moves({ square: s, verbose: true });
+				if (ms.length) dests[s] = ms.map(m => m.to);
+			});
+			return dests;
+		},
 	},
 	mounted() {
 		this.cg = Chessground(this.$refs.board, {
@@ -60,7 +58,7 @@ export default {
 			movable: {
 				color: toColor(this.chessGame),
 				free: false,
-				dests: toDests(this.chessGame),
+				dests: this.toDests(this.chessGame),
 			},
 		});
 		this.cg.set({
