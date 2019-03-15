@@ -14,3 +14,16 @@ export function toDests(chess) {
 export function timestamp() {
 	return window.performance.now();
 }
+
+export function playOtherSide(cg, chess) {
+	return (orig, dest) => {
+		chess.move({from: orig, to: dest});
+		cg.set({
+			turnColor: toColor(chess),
+			movable: {
+				color: toColor(chess),
+				dests: toDests(chess)
+			},
+	  });
+	};
+}
