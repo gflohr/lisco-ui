@@ -4,7 +4,7 @@
 
 <script>
 import { Chessground } from 'chessground';
-import { toColor } from '../util';
+import { toColor, toDests } from '../util';
 
 import '../../public/chessground/chessground.css';
 import '../../public/chessground/theme.css';
@@ -43,10 +43,12 @@ export default {
 		'chess-game': Object,
 	},
 	mounted() {
-		console.log(this.chessGame.turn());
 		this.board = Chessground(this.$refs.board, {
+			turnColor: toColor(this.chessGame),
 			movable: {
 				color: toColor(this.chessGame),
+				free: false,
+				dests: toDests(this.chessGame),
 			},
 		});
 		window.onresize = resizeBoard;
