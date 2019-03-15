@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="board blue merida" id="board">
-				<chess-board/>
+				<chess-board :game="game"/>
 			</div>
 			<div class="moves">
 				<table class="table-striped">
@@ -83,12 +83,16 @@
 </template>
 
 <script>
+import Chess from 'chess.js';
 import ChessBoard from './components/ChessBoard.vue';
 
 export default {
 	name: 'app',
 	components: {
 		ChessBoard,
+	},
+	created() {
+		this.game = new Chess();
 	},
 };
 </script>

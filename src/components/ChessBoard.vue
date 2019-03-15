@@ -37,6 +37,9 @@ function resizeBoard() {
 
 export default {
 	name: 'ChessBoard',
+	props: {
+		game: Object,
+	},
 	mounted() {
 		this.board = Chessground(this.$refs.board, {});
 		window.onresize = resizeBoard;
