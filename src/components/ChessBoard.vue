@@ -4,7 +4,7 @@
 
 <script>
 import { Chessground } from 'chessground';
-import { toColor, toDests, playOtherSide } from '../util';
+import { toColor, playOtherSide } from '../util';
 
 import '../../public/chessground/chessground.css';
 import '../../public/chessground/theme.css';
@@ -37,10 +37,22 @@ function resizeBoard() {
 	document.body.dispatchEvent(new Event('chessground.resize'));
 }
 
+export function toDests(chess) {
+	const dests = {};
+	chess.SQUARES.forEach((s) => {
+		const ms = chess.moves({ square: s, verbose: true });
+		if (ms.length) dests[s] = ms.map(m => m.to);
+	});
+	return dests;
+}
+
 export default {
 	name: 'ChessBoard',
 	props: {
 		'chess-game': Object,
+	},
+	foobar() {
+		alert('foobar');
 	},
 	mounted() {
 		this.cg = Chessground(this.$refs.board, {
