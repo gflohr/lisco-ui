@@ -4,7 +4,6 @@
 
 <script>
 import { Chessground } from 'chessground';
-import { toColor, playOtherSide } from '../util';
 
 import '../../public/chessground/chessground.css';
 import '../../public/chessground/theme.css';
@@ -43,38 +42,41 @@ export default {
 		'chess-game': Object,
 	},
 	methods: {
-		toDests(chess) {
+		toDests() {
 			const dests = {};
-			chess.SQUARES.forEach((s) => {
-				const ms = chess.moves({ square: s, verbose: true });
+			this.chessGame.SQUARES.forEach((s) => {
+				const ms = this.chessGame.moves({ square: s, verbose: true });
 				if (ms.length) dests[s] = ms.map(m => m.to);
 			});
 			return dests;
 		},
-		playOtherSide(cg, chess) {
+		playOtherSide() {
 			return (orig, dest) => {
-				const move = chess.move({from: orig, to: dest});
-				cg.set({
-					turnColor: toColor(chess),
+				const move = this.chessGame.move({from: orig, to: dest});
+				this.cg.set({
+					turnColor: this.turnColor(),
 					movable: {
-						color: toColor(chess),
-						dests: toDests(chess)
+						color: this.turnColor(),
+						dests: this.toDests(this.chessGame),
 					},
 				});
 			};
+		},
+		turnColor() {
+			return this.chessGame.turn() === 'w' ? 'white' : 'black';
 		}
 	},
 	mounted() {
 		this.cg = Chessground(this.$refs.board, {
-			turnColor: toColor(this.chessGame),
+			turnColor: this.turnColor(),
 			movable: {
-				color: toColor(this.chessGame),
+				color: this.turnColor(),
 				free: false,
-				dests: this.toDests(this.chessGame),
+				dests: this.toDests(),
 			},
 		});
 		this.cg.set({
-			movable: { events: { after: this.playOtherSide(this.cg, this.chessGame) } }
+			movable: { events: { after: this.playOtherSide() } }
 		});
 		window.onresize = resizeBoard;
 		resizeBoard();
