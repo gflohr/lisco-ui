@@ -14,7 +14,7 @@ function resizeBoard() {
 	const playerInfos = document.getElementsByClassName('player-infos')[0];
 	const playerInfosWidth = playerInfos.offsetWidth;
 	const moves = document.getElementsByClassName('moves')[0];
-	const movesWidth = playerInfos.offsetWidth;
+	const movesWidth = moves.offsetWidth;
 	const header = document.getElementById('header');
 	const headerHeight = header.offsetHeight;
 	const footer = document.getElementById('footer');
@@ -29,9 +29,9 @@ function resizeBoard() {
 		- 2 * coordsFiles.offsetHeight;
 
 	const size = Math.min(width, height);
-	let chessground = document.getElementById('chessground');
-	chessground.style.width = size + 'px';
-	chessground.style.height = size + 'px';
+	const chessground = document.getElementById('chessground');
+	chessground.style.width = `${size}px`;
+	chessground.style.height = `${size}px`;
 	document.body.dispatchEvent(new Event('chessground.resize'));
 }
 
@@ -41,6 +41,6 @@ export default {
 		this.board = Chessground(this.$refs.board, {});
 		window.onresize = resizeBoard;
 		resizeBoard();
-	}
+	},
 };
 </script>
