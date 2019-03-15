@@ -4,6 +4,8 @@
 
 <script>
 import { Chessground } from 'chessground';
+import { toColor } from '../util';
+
 import '../../public/chessground/chessground.css';
 import '../../public/chessground/theme.css';
 
@@ -38,10 +40,15 @@ function resizeBoard() {
 export default {
 	name: 'ChessBoard',
 	props: {
-		game: Object,
+		'chess-game': Object,
 	},
 	mounted() {
-		this.board = Chessground(this.$refs.board, {});
+		console.log(this.chessGame.turn());
+		this.board = Chessground(this.$refs.board, {
+			movable: {
+				color: toColor(this.chessGame),
+			},
+		});
 		window.onresize = resizeBoard;
 		resizeBoard();
 	},

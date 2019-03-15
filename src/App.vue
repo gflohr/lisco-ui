@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="board blue merida" id="board">
-				<chess-board :game="game"/>
+				<chess-board :chess-game="game"/>
 			</div>
 			<div class="moves">
 				<table class="table-striped">
