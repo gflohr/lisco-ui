@@ -1,9 +1,7 @@
 import username from 'username';
 import fullname from 'fullname';
 
-export default function(options) {
-	if (options === undefined) options = {};
-
+export default function (options) {
 	this.color = 'w';
 	this.name = 'White';
 
@@ -12,12 +10,18 @@ export default function(options) {
 		this.name = 'Black';
 	}
 
-	fullname().then(name => this.name = name)
-			  .catch(username.sync.then(name => this.name = name));
+	fullname().then((name) => {
+		this.name = name;
+	})
+		.catch(() => {
+			username.then((name) => {
+				this.name = name;
+			});
+		});
 
 	// No need.
-	this.startPlaying() = () => {};
+	this.startPlaying = () => {};
 
 	// No need.
-	this.requestMove() = () => {};
-};
+	this.requestMove = () => {};
+}

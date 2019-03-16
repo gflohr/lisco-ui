@@ -46,8 +46,9 @@ export default {
 			return tc.timeLeft <= 0;
 		},
 		fullName: function fullName() {
-			return this.$props.pieceColor === 'white'
-				? this.$store.state.whiteName : this.$store.state.blackName;
+			const player = this.$props.pieceColor === 'white'
+				? this.$store.state.whitePlayer : this.$store.state.blackPlayer;
+			return player.name;
 		},
 		timeLeft: function timeLeft() {
 			let tc;

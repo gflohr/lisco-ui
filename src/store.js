@@ -1,7 +1,10 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Chess from 'chess.js';
 import TimeControl from './time-control';
+import Human from './players/human';
 
 Vue.use(Vuex);
 
@@ -11,6 +14,8 @@ export default new Vuex.Store({
 		live: true,
 		history: [],
 		boardFlipped: false,
+		whitePlayer: new Human({ color: 'w' }),
+		blackPlayer: new Human({ color: 'b' }),
 		whiteName: 'White',
 		blackName: 'Black',
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
@@ -35,21 +40,11 @@ export default new Vuex.Store({
 		start(state) {
 			state.started = true;
 		},
-		whiteName(state, name) {
-			state.whiteName = name;
-		},
-		blackName(state, name) {
-			state.blackName = name;
-		},
 	},
 	getters: {
-		whiteTimeLeft: state => {
-			return state.whiteTC[1] * 3600000;
-		},
-		blackTimeLeft: state => {
-			return state.blackTC[1] * 3600000;
-		},
-		whiteTimeElapsed: state => {
+		whiteTimeLeft: state => state.whiteTC[1] * 3600000,
+		blackTimeLeft: state => state.blackTC[1] * 3600000,
+		whiteTimeElapsed: (state) => {
 			let elapsed = state.whiteElapsed;
 
 			if (state.started && state.chess.turn() === 'w') {
@@ -58,7 +53,7 @@ export default new Vuex.Store({
 
 			return elapsed;
 		},
-		blackTimeElapsed: state => {
+		blackTimeElapsed: (state) => {
 			let elapsed = state.blackElapsed;
 
 			if (state.started && state.chess.turn() === 'b') {
