@@ -11,6 +11,8 @@ export default new Vuex.Store({
 		boardFlipped: false,
 		whiteName: 'White',
 		blackName: 'Black',
+		whiteTimeControl: [40, 5, 0],
+		blackTimeControl: [40, 5, 0],
 	},
 	mutations: {
 		move(state, options) {
@@ -24,7 +26,17 @@ export default new Vuex.Store({
 		},
 		blackName(state, name) {
 			state.blackName = name;
-		}
+		},
+	},
+	getters: {
+		whiteTimeLeft: state => {
+			console.log(state);
+			return state.whiteTimeControl[1] * 3600000;
+		},
+		blackTimeLeft: state => {
+			console.log(state);
+			return state.blackTimeControl[1] * 3600000;
+		},
 	},
 	actions: {
 
