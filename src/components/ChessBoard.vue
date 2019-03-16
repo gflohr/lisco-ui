@@ -52,7 +52,8 @@ export default {
 		},
 		playOtherSide() {
 			return (orig, dest) => {
-				const move = this.chessGame.move({from: orig, to: dest});
+				const move = this.chessGame.move({ from: orig, to: dest });
+				console.log(move);
 				this.cg.set({
 					turnColor: this.turnColor(),
 					movable: {
@@ -64,7 +65,7 @@ export default {
 		},
 		turnColor() {
 			return this.chessGame.turn() === 'w' ? 'white' : 'black';
-		}
+		},
 	},
 	mounted() {
 		this.cg = Chessground(this.$refs.board, {
@@ -76,7 +77,11 @@ export default {
 			},
 		});
 		this.cg.set({
-			movable: { events: { after: this.playOtherSide() } }
+			movable: {
+				events: {
+					after: this.playOtherSide(),
+				},
+			},
 		});
 		window.onresize = resizeBoard;
 		resizeBoard();
