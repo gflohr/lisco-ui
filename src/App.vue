@@ -21,39 +21,7 @@
 			<div class="board blue merida" id="board">
 				<chess-board/>
 			</div>
-			<div class="moves">
-				<table class="table-striped">
-					<thead>
-						<tr>
-							<th class="toolbar"></th>
-							<th class="toolbar"><h1 class="title">White</h1></th>
-							<th class="toolbar"><h1 class="title">Black</h1></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th>1</th>
-							<td>e2-e4</td>
-							<td>e7-e5</td>
-						</tr>
-						<tr>
-							<th>2</th>
-							<td>Ng1-f3</td>
-							<td>Nb3-c6</td>
-						</tr>
-						<tr>
-							<th>3</th>
-							<td>Lf1-c4</td>
-							<td>Lf8-c5</td>
-						</tr>
-						<tr>
-							<th>4</th>
-							<td>d2-d3</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div class="moves"><move-table/></div>
 			<div class="info-area">
 				<div class="toolbar"><h1 class="title">Information</h1></div>
 			</div>
@@ -77,12 +45,14 @@ import fullname from 'fullname';
 
 import ChessBoard from './components/ChessBoard.vue';
 import PlayerInfo from './components/PlayerInfo.vue';
+import MoveTable from './components/MoveTable.vue';
 
 export default {
 	name: 'app',
 	components: {
 		ChessBoard,
 		PlayerInfo,
+		MoveTable,
 	},
 	created() {
 		fullname().then(name => {
