@@ -24,7 +24,7 @@ export default function(moves, base, increment) {
 		if (noRestart) {
 			this.timer = undefined;
 		} else {
-			const interval = this.timeLeft % 1000;
+			const interval = Math.abs(this.timeLeft % 1000);
 			this.timer = setTimeout(this.updateTimeLeft, interval);
 		}
 	};
