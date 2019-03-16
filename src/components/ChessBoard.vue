@@ -39,32 +39,32 @@ function resizeBoard() {
 export default {
 	name: 'ChessBoard',
 	props: {
-		'chess-game': Object,
 	},
 	methods: {
+		// Get the destination squares for a particular position.
 		toDests() {
 			const dests = {};
-			this.chessGame.SQUARES.forEach((s) => {
-				const ms = this.chessGame.moves({ square: s, verbose: true });
+			const { chess } = this.$store.state;
+			chess.SQUARES.forEach((s) => {
+				const ms = chess.moves({ square: s, verbose: true });
 				if (ms.length) dests[s] = ms.map(m => m.to);
 			});
 			return dests;
 		},
 		playOtherSide() {
 			return (orig, dest) => {
-				const move = this.chessGame.move({ from: orig, to: dest });
-				console.log(move);
+				this.$store.commit('move', { from: orig, to: dest });
 				this.cg.set({
 					turnColor: this.turnColor(),
 					movable: {
 						color: this.turnColor(),
-						dests: this.toDests(this.chessGame),
+						dests: this.toDests(),
 					},
 				});
 			};
 		},
 		turnColor() {
-			return this.chessGame.turn() === 'w' ? 'white' : 'black';
+			return this.$store.state.chess.turn() === 'w' ? 'white' : 'black';
 		},
 	},
 	mounted() {
