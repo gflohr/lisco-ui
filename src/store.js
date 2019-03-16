@@ -13,8 +13,8 @@ export default new Vuex.Store({
 		boardFlipped: false,
 		whiteName: 'White',
 		blackName: 'Black',
-		whiteTimeControl: [40, 5, 0],
-		blackTimeControl: [40, 5, 0],
+		whiteTC: [40, 5, 0],
+		blackTC: [40, 5, 0],
 		whiteElapsed: 0,
 		blackElapsed: 0,
 		startedThinking: undefined,
@@ -51,10 +51,10 @@ export default new Vuex.Store({
 	},
 	getters: {
 		whiteTimeLeft: state => {
-			return state.whiteTimeControl[1] * 3600000;
+			return state.whiteTC[1] * 3600000;
 		},
 		blackTimeLeft: state => {
-			return state.blackTimeControl[1] * 3600000;
+			return state.blackTC[1] * 3600000;
 		},
 		whiteTimeElapsed: state => {
 			console.log('white time elapsed called: ' + state.chess.turn());
