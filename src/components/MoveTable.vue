@@ -68,7 +68,6 @@ export default {
 	},
 	computed: {
 		doubleMoves: function doubleMoves() {
-			console.log("computing double move");
 			const history = this.$store.state.history;
 			let rows = [];
 			const longFormat = true;
