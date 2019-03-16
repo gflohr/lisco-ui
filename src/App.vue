@@ -55,12 +55,12 @@ export default {
 		MoveTable,
 	},
 	created() {
-		fullname().then(name => {
+		fullname().then((name) => {
 			this.$store.commit('whiteName', name);
 		}).catch(() => {
-			username().then(name => {
+			username().then((name) => {
 				this.$store.commit('whiteName', name);
-			})
+			});
 		});
 	},
 };
