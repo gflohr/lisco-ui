@@ -79,7 +79,7 @@
 
 <script>
 import Chess from 'chess.js';
-import ChessGame from './game';
+import ChessGame from './modules/ChessGame';
 import ChessBoard from './components/ChessBoard.vue';
 import PlayerInfo from './components/PlayerInfo.vue';
 
