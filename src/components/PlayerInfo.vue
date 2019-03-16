@@ -3,15 +3,14 @@
 		class="player-info">
 		<div class="player-info-name">{{fullName}}</div>
 		<div v-bind:class="{'flagged': flagged}"
-		     class="icon icon-clock"></div>
+			class="icon icon-clock"></div>
 		<div v-bind:class="{'flagged': flagged}"
-		     class="player-info-time-left">{{ timeLeft }}</div>
+			class="player-info-time-left">{{ timeLeft }}</div>
 	</div>
 </template>
 
 <script>
 function ms2time(ms) {
-	const old = ms;
 	let prefix = '';
 	let seconds = Math.ceil(ms / 1000);
 	if (seconds < 0) {
@@ -38,10 +37,11 @@ export default {
 		},
 		flagged: function flagged() {
 			let tc;
-			if (this.$props.pieceColor === 'white')
+			if (this.$props.pieceColor === 'white') {
 				tc = this.$store.state.whiteTimeControl;
-			else
+			} else {
 				tc = this.$store.state.blackTimeControl;
+			}
 
 			return tc.timeLeft <= 0;
 		},
@@ -51,10 +51,11 @@ export default {
 		},
 		timeLeft: function timeLeft() {
 			let tc;
-			if (this.$props.pieceColor === 'white')
+			if (this.$props.pieceColor === 'white') {
 				tc = this.$store.state.whiteTimeControl;
-			else
+			} else {
 				tc = this.$store.state.blackTimeControl;
+			}
 
 			return ms2time(tc.timeLeft);
 		},

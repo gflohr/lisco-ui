@@ -1,6 +1,6 @@
-export default function(moves, base, increment) {
+export default function (moves, base, increment) {
 	if (base <= 0) {
-		throw "Base time must be a positive integer";
+		throw 'Base time must be a positive integer';
 	}
 
 	this.moves_per_tc = moves;
@@ -9,7 +9,7 @@ export default function(moves, base, increment) {
 	this.moves = 0;
 	this.timeLeft = base;
 	this.started = undefined;
-	this.timer;
+	this.timer = undefined;
 	this.started = undefined;
 
 	this.updateTimeLeft = (noRestart) => {
@@ -46,13 +46,13 @@ export default function(moves, base, increment) {
 		this.started = undefined;
 
 		if (this.move_per_tc > 0) {
-			if (0 === (this.moves % this.moves_per_tc))
+			if (0 === (this.moves % this.moves_per_tc)) {
 				this.timeLeft += this.base;
+			}
 		}
 
 		if (this.increment > 0) {
 			this.timeLeft += increment;
 		}
-	}
-
-};
+	};
+}
