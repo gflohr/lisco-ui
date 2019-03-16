@@ -20,8 +20,5 @@ export default function (options) {
 		});
 
 	// No need.
-	this.startPlaying = () => {};
-
-	// No need.
 	this.requestMove = () => {};
 }

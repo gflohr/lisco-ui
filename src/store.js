@@ -28,15 +28,24 @@ export default new Vuex.Store({
 			if (whiteOnMove) {
 				state.blackTimeControl.stop();
 				state.whiteTimeControl.start();
+				state.whitePlayer.requestMove();
 			} else {
 				state.whiteTimeControl.stop();
 				state.blackTimeControl.start();
+				state.blackPlayer.requestMove();
 			}
 
 			state.history.push(move);
 		},
 		start(state) {
 			state.started = true;
+
+			const whiteOnMove = state.chess.turn() === 'w';
+			if (whiteOnMove) {
+				state.whitePlayer.requestMove();
+			} else {
+				state.blackPlayer.requestMove();
+			}
 		},
 	},
 	getters: {

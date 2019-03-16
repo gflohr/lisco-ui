@@ -51,7 +51,8 @@ export default {
 		PlayerInfo,
 		MoveTable,
 	},
-	created() {
+	mounted() {
+		this.$store.commit('start');
 	},
 };
 </script>
