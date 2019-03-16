@@ -8,7 +8,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="(row, index) in doubleMoves">
+			<tr v-for="(row, index) in doubleMoves" :key="row.id">
 				<th>{{ index + 1 }}</th>
 				<td>{{ row.white }}</td>
 				<td>{{ row.black }}</td>
@@ -36,7 +36,7 @@ function pieceMapping() {
 			q: '♛',
 			k: '♚',
 		},
-	}
+	};
 }
 
 function formatMove(move, long) {
@@ -68,12 +68,13 @@ export default {
 	},
 	computed: {
 		doubleMoves: function doubleMoves() {
-			const history = this.$store.state.history;
-			let rows = [];
+			const { history } = this.$store.state;
+			const rows = [];
 			const longFormat = true;
 
 			for (let i = 0; i < history.length; i += 2) {
-				let row = {
+				const row = {
+					id: i,
 					white: formatMove(history[i], longFormat),
 					black: '',
 				};
@@ -87,6 +88,6 @@ export default {
 
 			return rows;
 		},
-	}
+	},
 };
 </script>
