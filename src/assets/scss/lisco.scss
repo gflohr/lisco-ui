@@ -27,6 +27,12 @@
 	grid-column: 4 / 5;
 	grid-row: 2 / 3;
 	margin-left: 1rem;
+	// FIXME: We don't want the header to scroll away. Additionally, we always
+	// want to scroll to the bottom unless the user scrolled up.  Maybe use a
+	// variation of
+	// https://stackoverflow.com/questions/18614301/keep-overflow-div-scrolled-to-bottom-unless-user-scrolls-up
+	overflow: scroll;
+
 	td, th {
 		padding-left: 1em;
 		font-size: 120%;
@@ -37,6 +43,7 @@
 	grid-column: 4 / 5;
 	grid-row: 3 / 4;
 	padding-left: 1em;
+	overflow: scroll;
 }
 
 .footer {
