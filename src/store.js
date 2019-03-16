@@ -21,14 +21,23 @@ export default new Vuex.Store({
 	},
 	mutations: {
 		move(state, options) {
+			console.log('state is moving');
 			const move = state.chess.move(options);
 			if (move === undefined) return;
 
 			state.history.push(move);
 			if (!state.live) return;
 
+			console.log('start thinking');
 			state.started = true;
-			state.startedThinking = performance.now();
+			const now = performance.now();
+			if (state.startedThinking !== undefined) {
+				if (state.chess.turn() === 'w')
+					state.blackElapsed += now - state.startedThinking;
+				else
+					state.whiteElapsed += now - state.startedThinking;
+			}
+			state.startedThinking = now;
 		},
 		start(state) {
 			state.started = true;
@@ -48,19 +57,23 @@ export default new Vuex.Store({
 			return state.blackTimeControl[1] * 3600000;
 		},
 		whiteTimeElapsed: state => {
+			console.log('white time elapsed called: ' + state.chess.turn());
 			let elapsed = state.whiteElapsed;
 
 			if (state.started && state.chess.turn() === 'w') {
 				elapsed += performance.now() - state.startedThinking;
+				console.log('new elapsed: ' + elapsed);
 			}
 
 			return elapsed;
 		},
 		blackTimeElapsed: state => {
+			console.log('black time elapsed called: ' + state.chess.turn());
 			let elapsed = state.blackElapsed;
 
 			if (state.started && state.chess.turn() === 'b') {
 				elapsed += performance.now() - state.startedThinking;
+				console.log('new elapsed: ' + elapsed);
 			}
 
 			return elapsed;
