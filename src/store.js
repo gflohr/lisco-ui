@@ -9,6 +9,8 @@ export default new Vuex.Store({
 		chess: new Chess(),
 		history: [],
 		boardFlipped: false,
+		whiteName: 'White',
+		blackName: 'Black',
 	},
 	mutations: {
 		move(state, options) {
@@ -17,6 +19,12 @@ export default new Vuex.Store({
 				state.history.push(move);
 			}
 		},
+		whiteName(state, name) {
+			state.whiteName = name;
+		},
+		blackName(state, name) {
+			state.blackName = name;
+		}
 	},
 	actions: {
 

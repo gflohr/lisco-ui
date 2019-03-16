@@ -1,7 +1,7 @@
 <template>
 	<div v-bind:class="[positionClass, colorClass]"
 		class="player-info">
-		<div class="player-info-name">John Doe</div>
+		<div class="player-info-name">{{fullName}}</div>
 		<div class="icon icon-clock"></div>
 		<div class="player-info-time-left">01:05:15</div>
 		<div class="player-info-time-elapsed">01:03:12</div>
@@ -23,6 +23,10 @@ export default {
 			return (this.$props.pieceColor === 'white'
 				? 'player-info-white' : 'player-info-black');
 		},
+		fullName: function fullName() {
+			return this.$props.pieceColor === 'white'
+				? this.$store.state.whiteName : this.$store.state.blackName;
+		}
 	},
 };
 </script>

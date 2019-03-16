@@ -73,6 +73,9 @@
 </template>
 
 <script>
+import username from 'username';
+import fullname from 'fullname';
+
 import ChessBoard from './components/ChessBoard.vue';
 import PlayerInfo from './components/PlayerInfo.vue';
 
@@ -81,6 +84,15 @@ export default {
 	components: {
 		ChessBoard,
 		PlayerInfo,
+	},
+	created() {
+		fullname().then(name => {
+			this.$store.commit('whiteName', name);
+		}).catch(() => {
+			username().then(name => {
+				this.$store.commit('whiteName', name);
+			})
+		});
 	},
 };
 </script>
