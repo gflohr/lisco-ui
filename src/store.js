@@ -14,7 +14,7 @@ export default new Vuex.Store({
 		whiteName: 'White',
 		blackName: 'Black',
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
-		blackTimeControl: new TimeControl(40, 0.1 * 60 * 1000, 0),
+		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
 	mutations: {
 		move(state, options) {
