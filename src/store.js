@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Chess from 'chess.js';
+import TimeControl from './time-control';
 
 Vue.use(Vuex);
 
@@ -8,36 +9,28 @@ export default new Vuex.Store({
 	state: {
 		chess: new Chess(),
 		live: true,
-		started: false,
 		history: [],
 		boardFlipped: false,
 		whiteName: 'White',
 		blackName: 'Black',
-		whiteTC: [40, 5, 0],
-		blackTC: [40, 5, 0],
-		whiteElapsed: 0,
-		blackElapsed: 0,
-		startedThinking: undefined,
+		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
+		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
 	mutations: {
 		move(state, options) {
-			console.log('state is moving');
 			const move = state.chess.move(options);
 			if (move === undefined) return;
 
-			state.history.push(move);
-			if (!state.live) return;
-
-			console.log('start thinking');
-			state.started = true;
-			const now = performance.now();
-			if (state.startedThinking !== undefined) {
-				if (state.chess.turn() === 'w')
-					state.blackElapsed += now - state.startedThinking;
-				else
-					state.whiteElapsed += now - state.startedThinking;
+			const whiteOnMove = state.chess.turn() === 'w';
+			if (whiteOnMove) {
+				state.blackTimeControl.stop();
+				state.whiteTimeControl.start();
+			} else {
+				state.whiteTimeControl.stop();
+				state.blackTimeControl.start();
 			}
-			state.startedThinking = now;
+
+			state.history.push(move);
 		},
 		start(state) {
 			state.started = true;
@@ -57,23 +50,19 @@ export default new Vuex.Store({
 			return state.blackTC[1] * 3600000;
 		},
 		whiteTimeElapsed: state => {
-			console.log('white time elapsed called: ' + state.chess.turn());
 			let elapsed = state.whiteElapsed;
 
 			if (state.started && state.chess.turn() === 'w') {
 				elapsed += performance.now() - state.startedThinking;
-				console.log('new elapsed: ' + elapsed);
 			}
 
 			return elapsed;
 		},
 		blackTimeElapsed: state => {
-			console.log('black time elapsed called: ' + state.chess.turn());
 			let elapsed = state.blackElapsed;
 
 			if (state.started && state.chess.turn() === 'b') {
 				elapsed += performance.now() - state.startedThinking;
-				console.log('new elapsed: ' + elapsed);
 			}
 
 			return elapsed;

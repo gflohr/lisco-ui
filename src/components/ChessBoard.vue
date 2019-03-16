@@ -54,6 +54,7 @@ export default {
 		playOtherSide() {
 			return (orig, dest) => {
 				this.$store.commit('move', { from: orig, to: dest });
+				// FIXME! That depends on the type of opponent!
 				this.cg.set({
 					turnColor: this.turnColor(),
 					movable: {

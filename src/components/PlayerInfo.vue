@@ -9,7 +9,7 @@
 
 <script>
 function ms2time(ms) {
-	let seconds = Math.floor(ms / 1000);
+	let seconds = Math.ceil(ms / 1000);
 	let minutes = Math.floor(seconds / 60);
 	seconds -= 60 * minutes;
 	let hours = Math.floor(minutes / 60);
@@ -38,14 +38,13 @@ export default {
 				? this.$store.state.whiteName : this.$store.state.blackName;
 		},
 		timeLeft: function timeLeft() {
-			return ms2time(this.$props.pieceColor === 'white'
-				 ? this.$store.getters.whiteTimeLeft
-				 : this.$store.getters.blackTimeLeft);
-		},
-		timeElapsed: function timeElapsed() {
-			return ms2time(this.$props.pieceColor === 'white'
-				 ? this.$store.getters.whiteTimeElapsed
-				 : this.$store.getters.blackTimeElapsed);
+			let tc;
+			if (this.$props.pieceColor === 'white')
+				tc = this.$store.state.whiteTimeControl;
+			else
+				tc = this.$store.state.blackTimeControl;
+
+			return ms2time(tc.timeLeft);
 		},
 	},
 	created() {

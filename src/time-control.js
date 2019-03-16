@@ -9,29 +9,34 @@ export default function(moves, base, increment) {
 	this.moves = 0;
 	this.timeLeft = base;
 	this.started = undefined;
+	this.timer;
+	this.started = undefined;
 
-	this.currentTimeLeft = function currentTimeLeft() {
-		let timeLeft = this.timeLeft;
-
-		if (this.started !== undefined) {
-			timeLeft -= (performance.now() - this.started);
-		}
-
-		return timeLeft;
-	};
-
-	this.start = function start() {
-		this.started = performance.now();
-	};
-
-	this.stop = function stop() {
+	this.updateTimeLeft = (noRestart) => {
 		const now = performance.now();
 
-		++this.moves;
 		if (this.started !== undefined) {
 			this.timeLeft -= (now - this.started);
 		}
 
+		this.started = now;
+
+		if (noRestart) {
+			this.timer = undefined;
+		} else {
+			const interval = this.timeLeft % 1000;
+			this.timer = setTimeout(this.updateTimeLeft, interval);
+		}
+	};
+
+	this.start = function start() {
+		this.updateTimeLeft(false);
+	};
+
+	this.stop = function stop() {
+		this.updateTimeLeft(true);
+
+		++this.moves;
 		this.started = undefined;
 
 		if (this.move_per_tc > 0) {
