@@ -7,10 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		chess: new Chess(),
+		history: [],
 	},
 	mutations: {
 		move(state, options) {
-			return state.chess.move(options);
+			const move = state.chess.move(options);
+			if (move) {
+				state.history.push(move);
+			}
 		},
 	},
 	actions: {
