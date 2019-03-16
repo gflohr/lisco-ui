@@ -26,7 +26,11 @@
 .moves {
 	grid-column: 4 / 5;
 	grid-row: 2 / 3;
-	padding-left: 1em;
+	margin-left: 1rem;
+	td, th {
+		padding-left: 1em;
+		font-size: 120%;
+	}
 }
 
 .info-area {
