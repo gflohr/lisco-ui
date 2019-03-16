@@ -91,6 +91,7 @@ export default {
 	},
 	created() {
 		this.chess = new Chess();
+		this.chessGame = new ChessGame();
 	},
 };
 </script>
