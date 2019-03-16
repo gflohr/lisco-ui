@@ -16,8 +16,6 @@ export default new Vuex.Store({
 		boardFlipped: false,
 		whitePlayer: new Human({ color: 'w' }),
 		blackPlayer: new Human({ color: 'b' }),
-		whiteName: 'White',
-		blackName: 'Black',
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
