@@ -18,8 +18,8 @@
 				<player-info piece-color="black" component-position="top"/>
 				<player-info piece-color="white" component-position="bottom"/>
 			</div>
-			<div class="board blue merida" id="board">
-				<chess-board/>
+			<div class="board blue merida" id="board" ref="board">
+				<chess-board :ready="boardReady"/>
 			</div>
 			<div class="moves"><move-table/></div>
 			<div class="info-area">
@@ -46,13 +46,24 @@ import MoveTable from './components/MoveTable.vue';
 
 export default {
 	name: 'app',
+	data: () => {
+		return {
+			boardReady: false,
+		}
+	},
 	components: {
 		ChessBoard,
 		PlayerInfo,
 		MoveTable,
 	},
 	mounted() {
-		this.$store.commit('start');
+		this.$store.dispatch('start')
+		.then(() => {
+			this.boardReady = true;
+		})
+		.catch((e) => {
+			alert('starting players failed: ', e);
+		});
 	},
 };
 </script>

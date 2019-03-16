@@ -38,7 +38,18 @@ function resizeBoard() {
 
 export default {
 	name: 'ChessBoard',
-	props: {
+	props: ['ready'],
+	watch: {
+		ready: function() {
+			if (this.ready) {
+				this.cg.set({
+					movable: {
+						color: this.turnColor(),
+						dests: this.toDests(),
+					}
+				});
+			}
+		}
 	},
 	methods: {
 		// Get the destination squares for a particular position.
@@ -74,7 +85,8 @@ export default {
 			movable: {
 				color: this.turnColor(),
 				free: false,
-				dests: this.toDests(),
+				color: undefined,
+				dests: [],
 			},
 		});
 		this.cg.set({

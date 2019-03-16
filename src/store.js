@@ -10,6 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		ready: false,
 		chess: new Chess(),
 		live: true,
 		history: [],
@@ -37,15 +38,22 @@ export default new Vuex.Store({
 
 			state.history.push(move);
 		},
-		start(state) {
-			state.started = true;
+	},
+	actions: {
+		start({ state }) {
+			return new Promise((resolve, reject) => {
+				state.started = true;
 
-			const whiteOnMove = state.chess.turn() === 'w';
-			if (whiteOnMove) {
-				state.whitePlayer.requestMove();
-			} else {
-				state.blackPlayer.requestMove();
-			}
+				const whiteOnMove = state.chess.turn() === 'w';
+				if (whiteOnMove) {
+					state.whitePlayer.requestMove();
+				} else {
+					state.blackPlayer.requestMove();
+				}
+				
+				state.ready = true;
+				resolve();
+			});
 		},
 	},
 	getters: {
@@ -69,8 +77,5 @@ export default new Vuex.Store({
 
 			return elapsed;
 		},
-	},
-	actions: {
-
 	},
 });
