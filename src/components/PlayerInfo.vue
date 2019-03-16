@@ -4,7 +4,7 @@
 		<div class="player-info-name">{{fullName}}</div>
 		<div class="icon icon-clock"></div>
 		<div class="player-info-time-left">{{ timeLeft }}</div>
-		<div class="player-info-time-elapsed">01:03:12</div>
+		<div class="player-info-time-elapsed">{{ timeElapsed }}</div>
 	</div>
 </template>
 
@@ -42,6 +42,11 @@ export default {
 			return ms2time(this.$props.pieceColor === 'white'
 				 ? this.$store.getters.whiteTimeLeft
 				 : this.$store.getters.blackTimeLeft);
+		},
+		timeElapsed: function timeElapsed() {
+			return ms2time(this.$props.pieceColor === 'white'
+				 ? this.$store.getters.whiteTimeElapsed
+				 : this.$store.getters.blackTimeElapsed);
 		},
 	},
 	created() {
