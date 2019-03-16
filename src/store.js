@@ -44,6 +44,25 @@ export default new Vuex.Store({
 			return new Promise((resolve, reject) => {
 				state.started = true;
 
+				let whiteReady = false;
+				let blackReady = false;
+
+				state.whitePlayer.init()
+				.then(() => {
+					if (blackReady) resolve();
+				})
+				.catch((err) => {
+					reject("Starting white engine failed: " + err);
+				});
+
+				state.blackPlayer.init()
+				.then(() => {
+					if (blackReady) resolve();
+				})
+				.catch((err) => {
+					reject("Starting black engine failed: " + err);
+				});
+
 				const whiteOnMove = state.chess.turn() === 'w';
 				if (whiteOnMove) {
 					state.whitePlayer.requestMove();

@@ -62,7 +62,7 @@ export default {
 			this.boardReady = true;
 		})
 		.catch((e) => {
-			alert('starting players failed: ', e);
+			alert('Starting players failed: ', e);
 		});
 	},
 };
