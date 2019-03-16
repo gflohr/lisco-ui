@@ -22,7 +22,10 @@ export default function(moves, base, increment) {
 		this.started = now;
 
 		if (noRestart) {
-			this.timer = undefined;
+			if (this.timer !== undefined) {
+				clearTimeout(this.timer);
+				this.timer = undefined;
+			}
 		} else {
 			let interval = this.timeLeft % 1000;
 			if (interval < 0) {

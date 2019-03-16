@@ -54,9 +54,8 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="comment-area">
-				<div class="toolbar"><h1 class="title">Comment</h1></div>
-				<div>What a blunder!</div>
+			<div class="info-area">
+				<div class="toolbar"><h1 class="title">Information</h1></div>
 			</div>
 		<footer id="footer" class="footer toolbar toolbar-footer">
 				<div class="toolbar-actions">
