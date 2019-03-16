@@ -2,7 +2,7 @@
 .wrapper {
 	display: grid;
 	height: 100%;
-	grid-template-columns: 1fr auto auto min-content 1fr;
+	grid-template-columns: min-content auto auto min-content 1fr;
 	grid-template-rows: min-content 1fr 1fr min-content;
 }
 
