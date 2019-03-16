@@ -82,7 +82,6 @@
 
 .player-info .icon {
 	grid-column: 1 / 2;
-	grid-row: 2 / 4;
 	align-self: center;
 	font-size: 300%;
 	margin-left: 0.6rem;
@@ -90,19 +89,14 @@
 }
 
 .player-info-time-left {
+	align-self: center;
 	grid-column: 2 / 3;
-	grid-row: 2 / 3;
 	font-size: 200%;
 	margin-right: 0.6rem;
 }
 
-.player-info-time-elapsed {
-	grid-column: 2 / 3;
-	grid-row: 3 / 4;
-	margin-right: 0.6rem;
-}
-
 .player-info-name {
+	align-self: center;
 	justify-self: center;
 	white-space: nowrap;
 	overflow: hidden;

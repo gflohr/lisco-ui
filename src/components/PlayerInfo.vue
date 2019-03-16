@@ -4,7 +4,6 @@
 		<div class="player-info-name">{{fullName}}</div>
 		<div class="icon icon-clock"></div>
 		<div class="player-info-time-left">{{ timeLeft }}</div>
-		<div class="player-info-time-elapsed">{{ timeElapsed }}</div>
 	</div>
 </template>
 
