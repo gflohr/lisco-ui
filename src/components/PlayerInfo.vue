@@ -1,5 +1,6 @@
 <template>
-	<div class="player-info player-info-top player-info-black">
+	<div v-bind:class="[positionClass, colorClass]"
+		class="player-info">
 		<div class="player-info-name">John Doe</div>
 		<div class="icon icon-clock"></div>
 		<div class="player-info-time-left">01:05:15</div>
@@ -11,6 +12,17 @@
 export default {
 	name: 'PlayerInfo',
 	props: {
+		componentPosition: String,
+		pieceColor: String,
+	},
+	computed: {
+		positionClass: function positionClass() {
+			return `player-info-${this.$props.componentPosition}`;
+		},
+		colorClass: function colorClass() {
+			return (this.$props.pieceColor === 'white'
+				? 'player-info-white' : 'player-info-black');
+		},
 	},
 };
 </script>

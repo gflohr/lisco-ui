@@ -15,13 +15,8 @@
 				</div>
 			</header>
 			<div class="player-infos">
-				<player-info></player-info>
-				<div class="player-info player-info-bottom player-info-white">
-					<div class="player-info-name">Jane Appleseed</div>
-					<div class="icon icon-clock"></div>
-					<div class="player-info-time-left">00:05:45</div>
-					<div class="player-info-time-elapsed">00:07:48</div>
-				</div>
+				<player-info piece-color="black" component-position="top"/>
+				<player-info piece-color="white" component-position="bottom"/>
 			</div>
 			<div class="board blue merida" id="board">
 				<chess-board/>

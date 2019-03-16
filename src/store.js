@@ -8,6 +8,7 @@ export default new Vuex.Store({
 	state: {
 		chess: new Chess(),
 		history: [],
+		boardFlipped: false,
 	},
 	mutations: {
 		move(state, options) {
