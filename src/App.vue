@@ -60,19 +60,21 @@ export default {
 		try {
 			const options = {
 				white: {
+					color: 'w',
 					name: 'Stockfish',
 					connection: 'local',
 					manager: 'UCI',
 					path: 'stockfish',
 				},
 				black: {
+					color: 'b',
 					name: 'Ethereal',
 					connection: 'local',
 					manager: 'UCI',
 					path: 'ethereal',
 				},
 			};
-			await this.$store.dispatch('start', options);
+			await this.$store.dispatch('game/start', options);
 			this.boardReady = true;
 		} catch (e) {
 			alert(`Starting players failed: ${e}`);

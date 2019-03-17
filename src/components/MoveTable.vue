@@ -68,7 +68,7 @@ export default {
 	},
 	computed: {
 		doubleMoves: function doubleMoves() {
-			const { history } = this.$store.state;
+			const { history } = this.$store.state.game;
 			const rows = [];
 			const longFormat = true;
 

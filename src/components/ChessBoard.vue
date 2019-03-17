@@ -55,7 +55,7 @@ export default {
 		// Get the destination squares for a particular position.
 		toDests() {
 			const dests = {};
-			const { chess } = this.$store.state;
+			const { chess } = this.$store.state.game;
 			chess.SQUARES.forEach((s) => {
 				const ms = chess.moves({ square: s, verbose: true });
 				if (ms.length) dests[s] = ms.map(m => m.to);
@@ -76,7 +76,8 @@ export default {
 			};
 		},
 		turnColor() {
-			return this.$store.state.chess.turn() === 'w' ? 'white' : 'black';
+			return this.$store.state.game.chess.turn() === 'w'
+				? 'white' : 'black';
 		},
 	},
 	mounted() {

@@ -38,24 +38,25 @@ export default {
 		flagged: function flagged() {
 			let tc;
 			if (this.$props.pieceColor === 'white') {
-				tc = this.$store.state.whiteTimeControl;
+				tc = this.$store.state.game.whiteTimeControl;
 			} else {
-				tc = this.$store.state.blackTimeControl;
+				tc = this.$store.state.game.blackTimeControl;
 			}
 
 			return tc.timeLeft <= 0;
 		},
 		fullName: function fullName() {
 			const player = this.$props.pieceColor === 'white'
-				? this.$store.state.whitePlayer : this.$store.state.blackPlayer;
+				? this.$store.state.game.whitePlayer
+				: this.$store.state.game.blackPlayer;
 			return player.name;
 		},
 		timeLeft: function timeLeft() {
 			let tc;
 			if (this.$props.pieceColor === 'white') {
-				tc = this.$store.state.whiteTimeControl;
+				tc = this.$store.state.game.whiteTimeControl;
 			} else {
-				tc = this.$store.state.blackTimeControl;
+				tc = this.$store.state.game.blackTimeControl;
 			}
 
 			return ms2time(tc.timeLeft);

@@ -5,10 +5,8 @@ import AbstractPlayer from './abstract-player';
 const { Connection, Manager } = ChessTools.Engines;
 
 export default class EnginePlayer extends AbstractPlayer {
-	constructor(chess, options) {
-		super();
-		this.chess = chess;
-		this.name = options.name;
+	constructor(options) {
+		super(options);
 		this.connectionType = options.connection;
 		this.managerType = options.manager;
 		this.path = options.path;
@@ -37,10 +35,11 @@ export default class EnginePlayer extends AbstractPlayer {
 		});
 	}
 
-	async requestMove() {
-		const bestMove = await this.manager.ponderPosition(this.chess.fen(), {});
-		// FIXME! Rather emit a signal.
+	async requestMove(fen) {
+		const bestMove = await this.manager.ponderPosition(fen, {});
 		console.log(`best move: ${bestMove}`);
+		// FIXME! Rather emit a signal? Although that is really only useful
+		// for human players.
 		return bestMove;
 	}
 }

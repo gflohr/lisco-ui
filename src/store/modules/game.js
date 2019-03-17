@@ -3,6 +3,7 @@
 import Chess from 'chess.js';
 
 import TimeControl from '../../time-control';
+import HumanPlayer from '../../players/human-player';
 import EnginePlayer from '../../players/engine-player';
 
 export default {
@@ -11,6 +12,8 @@ export default {
 		chess: new Chess(),
 		timed: true,
 		history: [],
+		whitePlayer: new HumanPlayer({ color: 'w' }),
+		blackPlayer: new HumanPlayer({ color: 'b' }),
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
@@ -32,9 +35,9 @@ export default {
 			}
 
 			if (whiteOnMove) {
-				state.whitePlayer.requestMove();
+				state.whitePlayer.requestMove(this.state.chess.fen());
 			} else {
-				state.whitePlayer.requestMove();
+				state.whitePlayer.requestMove(this.state.chess.fen());
 			}
 
 			return move;
@@ -42,8 +45,8 @@ export default {
 	},
 	actions: {
 		async start({ state }, options) {
-			state.whitePlayer = new EnginePlayer(state.chess, options.white);
-			state.blackPlayer = new EnginePlayer(state.chess, options.black);
+			state.whitePlayer = new EnginePlayer(options.white);
+			state.blackPlayer = new EnginePlayer(options.black);
 
 			state.started = true;
 
@@ -55,7 +58,8 @@ export default {
 			if (!state.whitePlayer.isHuman()) {
 				state.whiteTimeControl.start();
 			}
-			await state.whitePlayer.requestMove();
+
+			await state.whitePlayer.requestMove(state.chess.fen());
 		},
 	},
 	getters: {
