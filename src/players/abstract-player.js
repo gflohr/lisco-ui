@@ -7,7 +7,7 @@ export default class AbstractPlayer {
 		this.color = options.color;
 
 		if ('name' in options) {
-			this.name = 'name';
+			this.name = options.name;
 		} else if ('w' === this.color) {
 			this.name = 'White';
 		} else {
