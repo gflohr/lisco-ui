@@ -35,9 +35,9 @@ export default {
 			}
 
 			if (whiteOnMove) {
-				state.whitePlayer.requestMove(this.state.chess.fen());
+				state.whitePlayer.getMove(this.state.chess.fen());
 			} else {
-				state.whitePlayer.requestMove(this.state.chess.fen());
+				state.whitePlayer.getMove(this.state.chess.fen());
 			}
 
 			return move;
@@ -59,7 +59,7 @@ export default {
 				state.whiteTimeControl.start();
 			}
 
-			await state.whitePlayer.requestMove(state.chess.fen());
+			await state.whitePlayer.getMove(state.chess.fen());
 		},
 	},
 	getters: {

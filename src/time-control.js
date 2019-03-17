@@ -1,6 +1,6 @@
 export default function (moves, base, increment) {
 	if (base <= 0) {
-		throw 'Base time must be a positive integer';
+		throw new Error('Base time must be a positive integer');
 	}
 
 	this.moves_per_tc = moves;

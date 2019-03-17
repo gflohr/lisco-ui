@@ -40,16 +40,16 @@ export default {
 	name: 'ChessBoard',
 	props: ['ready'],
 	watch: {
-		ready: function() {
+		ready: function ready() {
 			if (this.ready) {
 				this.cg.set({
 					movable: {
 						color: this.turnColor(),
 						dests: this.toDests(),
-					}
+					},
 				});
 			}
-		}
+		},
 	},
 	methods: {
 		// Get the destination squares for a particular position.
@@ -86,7 +86,6 @@ export default {
 			movable: {
 				color: this.turnColor(),
 				free: false,
-				color: undefined,
 				dests: [],
 			},
 		});

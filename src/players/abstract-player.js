@@ -19,6 +19,6 @@ export default class AbstractPlayer {
 		return false;
 	}
 
-	async requestMove() {
+	async getMove() {
 	}
 }

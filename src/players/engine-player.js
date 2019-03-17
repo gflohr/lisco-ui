@@ -35,7 +35,7 @@ export default class EnginePlayer extends AbstractPlayer {
 		});
 	}
 
-	async requestMove(fen) {
+	async getMove(fen) {
 		const bestMove = await this.manager.ponderPosition(fen, {});
 		console.log(`best move: ${bestMove}`);
 		// FIXME! Rather emit a signal? Although that is really only useful

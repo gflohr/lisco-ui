@@ -33,5 +33,5 @@ export default function (options) {
 	};
 
 	// No need.
-	this.requestMove = () => {};
+	this.getMove = () => {};
 }

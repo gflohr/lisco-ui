@@ -1,3 +1,6 @@
+import username from 'username';
+import fullname from 'fullname';
+
 import AbstractPlayer from './abstract-player';
 
 export default class HumanPlayer extends AbstractPlayer {
@@ -25,7 +28,7 @@ export default class HumanPlayer extends AbstractPlayer {
 	}
 
 	// FIXME! Wait for signal!
-	async requestMove() {
+	async getMove() {
 		return 'e4';
 	}
 }
