@@ -12,6 +12,7 @@ export default {
 		chess: new Chess(),
 		timed: true,
 		history: [],
+		move: undefined,
 		whitePlayer: new HumanPlayer({ color: 'w' }),
 		blackPlayer: new HumanPlayer({ color: 'b' }),
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
@@ -42,24 +43,43 @@ export default {
 
 			return move;
 		},
+		whitePlayer(state, player) {
+			state.whitePlayer = player;
+		},
+		blackPlayer(state, player) {
+			state.blackPlayer = player;
+		},
 	},
 	actions: {
-		async start({ state }, options) {
-			state.whitePlayer = new EnginePlayer(options.white);
-			state.blackPlayer = new EnginePlayer(options.black);
-
-			state.started = true;
+		async start({ state, commit }, options) {
+			const whitePlayer = new EnginePlayer(options.white);
+			const blackPlayer = new EnginePlayer(options.black);
 
 			await Promise.all([
-				state.whitePlayer.init(),
-				state.blackPlayer.init(),
+				whitePlayer.init(),
+				blackPlayer.init(),
 			]);
 
-			if (!state.whitePlayer.isHuman()) {
-				state.whiteTimeControl.start();
+			commit('whitePlayer', whitePlayer);
+			commit('blackPlayer', blackPlayer);
+		},
+		async move({ state }) {
+			let player;
+			let tc;
+
+			if (state.chess.turn() === 'w') {
+				player = state.whitePlayer;
+				tc = state.whiteTimeControl;
+			} else {
+				player = state.blackPlayer;
+				tc = state.blackTimeControl;
 			}
 
-			await state.whitePlayer.getMove(state.chess.fen());
+			if (typeof state.move === 'undefined' || !player.isHuman()) {
+				tc.start();
+			}
+
+			state.move = await player.getMove(state.chess.fen());
 		},
 	},
 	getters: {

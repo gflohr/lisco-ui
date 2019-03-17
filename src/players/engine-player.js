@@ -12,7 +12,7 @@ export default class EnginePlayer extends AbstractPlayer {
 		this.path = options.path;
 	}
 
-	init() {
+	async init() {
 		return new Promise((resolve, reject) => {
 			if ('local' === this.connectionType) {
 				if (typeof this.path === 'undefined') {
@@ -37,9 +37,6 @@ export default class EnginePlayer extends AbstractPlayer {
 
 	async getMove(fen) {
 		const bestMove = await this.manager.ponderPosition(fen, {});
-		console.log(`best move: ${bestMove}`);
-		// FIXME! Rather emit a signal? Although that is really only useful
-		// for human players.
 		return bestMove;
 	}
 }

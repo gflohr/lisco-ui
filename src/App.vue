@@ -76,9 +76,28 @@ export default {
 			};
 			await this.$store.dispatch('game/start', options);
 			this.boardReady = true;
+
+			await this.$store.dispatch('game/move');
 		} catch (e) {
 			alert(`Starting players failed: ${e}`);
 		}
+	},
+	computed: {
+		lastMove: {
+			get: function get() {
+				return this.$store.state.game.move;
+			},
+		},
+	},
+	watch: {
+		lastMove: function lastMoveChanged(move) {
+			const chess = this.$store.state.game.chess;
+			if (chess.game_over()) {
+				// FIXME! Be more specific.
+				alert("Game over!");
+				return;
+			}
+		},
 	},
 };
 </script>
