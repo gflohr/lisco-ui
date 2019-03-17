@@ -24,7 +24,7 @@ export default {
 			if (moveObject === undefined) return null;
 
 			// FIXME! Allow long and short algebraic notation.
-			state.history.push(moveObject.san);
+			state.history.push(moveObject);
 
 			state.move = moveObject;
 		},

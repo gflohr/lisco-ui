@@ -101,6 +101,8 @@ export default {
 				alert("Game over!");
 				return;
 			}
+
+			this.$store.dispatch('game/move');
 		},
 	},
 };
