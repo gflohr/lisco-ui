@@ -40,7 +40,7 @@ function pieceMapping() {
 }
 
 function formatMove(move, long) {
-	if (!long) return move.san;
+	if (!long || 'O' === move.san.charAt(0)) return move.san;
 
 	const mapping = pieceMapping()[move.color];
 
