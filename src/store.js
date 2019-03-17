@@ -51,7 +51,9 @@ export default new Vuex.Store({
 				state.blackPlayer.init(),
 			]);
 
+			state.whiteTimeControl.start();
 			await state.whitePlayer.requestMove();
+			state.whiteTimeControl.stop();
 		},
 	},
 	getters: {
