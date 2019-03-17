@@ -41,17 +41,17 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async start({ state }, options) {
-			const whitePlayer = new EnginePlayer(options.white);
-			const blackPlayer = new EnginePlayer(options.black);
+			state.whitePlayer = new EnginePlayer(state.chess, options.white);
+			state.blackPlayer = new EnginePlayer(state.chess, options.black);
 
 			state.started = true;
 
 			await Promise.all([
-				whitePlayer.init(),
-				blackPlayer.init(),
+				state.whitePlayer.init(),
+				state.blackPlayer.init(),
 			]);
 
-			await whitePlayer.requestMove();
+			await state.whitePlayer.requestMove();
 		},
 	},
 	getters: {

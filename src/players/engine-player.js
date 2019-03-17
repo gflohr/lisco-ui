@@ -5,8 +5,9 @@ import AbstractPlayer from './abstract-player';
 const { Connection, Manager } = ChessTools.Engines;
 
 export default class EnginePlayer extends AbstractPlayer {
-	constructor(options) {
+	constructor(chess, options) {
 		super();
+		this.chess = chess;
 		this.name = options.name;
 		this.connectionType = options.connection;
 		this.managerType = options.manager;
@@ -25,7 +26,7 @@ export default class EnginePlayer extends AbstractPlayer {
 			}
 
 			if ('UCI' === this.managerType) {
-				this.manager = new Manager.UCI(this.connection, { name: this.name });
+				this.manager = new Manager.UCI(this.connection, { ponder_timeout: 5000, name: this.name });
 			} else {
 				reject(new Error(`Unknown connection type '${this.managerType}'`));
 			}
@@ -37,6 +38,9 @@ export default class EnginePlayer extends AbstractPlayer {
 	}
 
 	async requestMove() {
-		console.log(`${this.name} has to move`);
+		const bestMove = await this.manager.ponderPosition(this.chess.fen(), {});
+		// FIXME! Rather emit a signal.
+		console.log(`best move: ${bestMove}`);
+		return bestMove;
 	}
 }
