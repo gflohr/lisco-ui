@@ -56,28 +56,27 @@ export default {
 		PlayerInfo,
 		MoveTable,
 	},
-	mounted() {
-		const options = {
-			white: {
-				name: 'Stockfish',
-				connection: 'local',
-				manager: 'UCI',
-				path: 'stockfish',
-			},
-			black: {
-				name: 'Ethereal',
-				connection: 'local',
-				manager: 'UCI',
-				path: 'ethereal',
-			},
-		};
-		this.$store.dispatch('start', options)
-			.then(() => {
-				this.boardReady = true;
-			})
-			.catch((e) => {
-				alert(`Starting players failed: ${e}`);
-			});
+	async mounted() {
+		try {
+			const options = {
+				white: {
+					name: 'Stockfish',
+					connection: 'local',
+					manager: 'UCI',
+					path: 'stockfish',
+				},
+				black: {
+					name: 'Ethereal',
+					connection: 'local',
+					manager: 'UCI',
+					path: 'ethereal',
+				},
+			};
+			await this.$store.dispatch('start', options);
+			this.boardReady = true;
+		} catch(e) {
+			alert(`Starting players failed: ${e}`);
+		}
 	},
 };
 </script>
