@@ -11,7 +11,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		ready: false,
 		chess: new Chess(),
 		live: true,
 		history: [],
@@ -52,9 +51,7 @@ export default new Vuex.Store({
 				blackPlayer.init(),
 			]);
 
-			state.ready = true;
-
-			return true;
+			await whitePlayer.requestMove();
 		},
 	},
 	getters: {

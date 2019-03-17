@@ -74,7 +74,7 @@ export default {
 			};
 			await this.$store.dispatch('start', options);
 			this.boardReady = true;
-		} catch(e) {
+		} catch (e) {
 			alert(`Starting players failed: ${e}`);
 		}
 	},

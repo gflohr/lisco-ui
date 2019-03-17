@@ -16,6 +16,8 @@ module.exports = {
                 'no-plusplus': 0,
                 'no-mixed-spaces-and-tabs': [2, 'smart-tabs'],
                 'no-alert': 0,
+                'class-methods-use-this': 0,
+                'no-empty-function': 0,
 	},
 	parserOptions: {
 		parser: 'babel-eslint',

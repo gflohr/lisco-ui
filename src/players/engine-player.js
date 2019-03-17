@@ -35,4 +35,8 @@ export default class EnginePlayer extends AbstractPlayer {
 			});
 		});
 	}
+
+	async requestMove() {
+		console.log(`${this.name} has to move`);
+	}
 }
