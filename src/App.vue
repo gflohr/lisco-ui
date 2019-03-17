@@ -46,10 +46,10 @@ import MoveTable from './components/MoveTable.vue';
 
 export default {
 	name: 'app',
-	data: () => {
+	data: function () {
 		return {
 			boardReady: false,
-		}
+		};
 	},
 	components: {
 		ChessBoard,
