@@ -41,42 +41,20 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		start({ state }, whiteOptions, blackOptions) {
-			return new Promise((resolve, reject) => {
-				const whitePlayer = new EnginePlayer(whiteOptions);
-				const blackPlayer = new EnginePlayer(whiteOptions);
-				
-				state.started = true;
+		async start({ state }, options) {
+			const whitePlayer = new EnginePlayer(options.white);
+			const blackPlayer = new EnginePlayer(options.black);
 
-				let whiteReady = false;
-				let blackReady = false;
+			state.started = true;
 
-				state.whitePlayer.init()
-				.then(() => {
-					if (blackReady) resolve();
-				})
-				.catch((err) => {
-					reject("Starting white engine failed: " + err);
-				});
+			await Promise.all([
+				whitePlayer.init(),
+				blackPlayer.init(),
+			]);
 
-				state.blackPlayer.init()
-				.then(() => {
-					if (blackReady) resolve();
-				})
-				.catch((err) => {
-					reject("Starting black engine failed: " + err);
-				});
+			state.ready = true;
 
-				const whiteOnMove = state.chess.turn() === 'w';
-				if (whiteOnMove) {
-					state.whitePlayer.requestMove();
-				} else {
-					state.blackPlayer.requestMove();
-				}
-				
-				state.ready = true;
-				resolve();
-			});
+			return true;
 		},
 	},
 	getters: {

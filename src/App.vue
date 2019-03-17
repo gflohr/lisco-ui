@@ -46,7 +46,7 @@ import MoveTable from './components/MoveTable.vue';
 
 export default {
 	name: 'app',
-	data: function () {
+	data: function data() {
 		return {
 			boardReady: false,
 		};
@@ -57,25 +57,27 @@ export default {
 		MoveTable,
 	},
 	mounted() {
-		const whiteOptions = {
-			name: 'Stockfish',
-			connection: 'local',
-			manager: 'UCI',
-			path: 'stockfish',
+		const options = {
+			white: {
+				name: 'Stockfish',
+				connection: 'local',
+				manager: 'UCI',
+				path: 'stockfish',
+			},
+			black: {
+				name: 'Ethereal',
+				connection: 'local',
+				manager: 'UCI',
+				path: 'ethereal',
+			},
 		};
-		const blackOptions = {
-			name: 'Ethereal',
-			connection: 'local',
-			manager: 'UCI',
-			path: 'ethereal',
-		};
-		this.$store.dispatch('start', whiteOptions, blackOptions)
-		.then(() => {
-			this.boardReady = true;
-		})
-		.catch((e) => {
-			alert('Starting players failed: ', e);
-		});
+		this.$store.dispatch('start', options)
+			.then(() => {
+				this.boardReady = true;
+			})
+			.catch((e) => {
+				alert(`Starting players failed: ${e}`);
+			});
 	},
 };
 </script>
