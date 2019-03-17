@@ -37,6 +37,20 @@ export default class EnginePlayer extends AbstractPlayer {
 
 	async getMove(fen) {
 		const bestMove = await this.manager.ponderPosition(fen, {});
-		return bestMove;
+		const parts = bestMove.match(/^([a-e][1-8])([a-e][1-8])([qrbn])?$/);
+
+		if (parts === null) {
+			throw new Error(`Engine ${this.name} (color: ${this.color})`
+			                + `returned invalid move ${bestMove}`);
+		}
+
+		const moveObject = {
+			from: parts[1],
+			to: parts[2],
+		};
+
+		if (typeof parts[3] !== 'undefined') moveObject.promotion = parts[3];
+
+		return moveObject;
 	}
 }

@@ -19,29 +19,11 @@ export default {
 		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
 	mutations: {
-		move(state, options) {
-			const move = state.chess.move(options);
-			if (move === undefined) return null;
+		move(state, move) {
+			const moveObject = state.chess.move(move);
+			if (moveObject === undefined) return null;
 
-			const whiteOnMove = state.chess.turn() === 'w';
-
-			if (state.timed) {
-				if (whiteOnMove) {
-					state.blackTimeControl.stop();
-					state.whiteTimeControl.start();
-				} else {
-					state.whiteTimeControl.stop();
-					state.blackTimeControl.start();
-				}
-			}
-
-			if (whiteOnMove) {
-				state.whitePlayer.getMove(this.state.chess.fen());
-			} else {
-				state.whitePlayer.getMove(this.state.chess.fen());
-			}
-
-			return move;
+			state.move = moveObject;
 		},
 		whitePlayer(state, player) {
 			state.whitePlayer = player;
@@ -49,9 +31,21 @@ export default {
 		blackPlayer(state, player) {
 			state.blackPlayer = player;
 		},
+		startWhiteClock(state) {
+			state.whiteTimeControl.start();
+		},
+		startBlackClock(state) {
+			state.blackTimeControl.start();
+		},
+		stopWhiteClock(state) {
+			state.whiteTimeControl.stop();
+		},
+		stopBlackClock(state) {
+			state.blackTimeControl.stop();
+		},
 	},
 	actions: {
-		async start({ state, commit }, options) {
+		async start({ commit }, options) {
 			const whitePlayer = new EnginePlayer(options.white);
 			const blackPlayer = new EnginePlayer(options.black);
 
@@ -63,23 +57,31 @@ export default {
 			commit('whitePlayer', whitePlayer);
 			commit('blackPlayer', blackPlayer);
 		},
-		async move({ state }) {
+		async move({ state, commit }) {
 			let player;
-			let tc;
+			let color;
 
 			if (state.chess.turn() === 'w') {
 				player = state.whitePlayer;
-				tc = state.whiteTimeControl;
+				color = 'White';
 			} else {
 				player = state.blackPlayer;
-				tc = state.blackTimeControl;
+				color = 'Black';
 			}
 
-			if (typeof state.move === 'undefined' || !player.isHuman()) {
-				tc.start();
+			if (state.timed
+				&& !(typeof state.move === 'undefined' && player.isHuman())) {
+				commit(`start${color}Clock`);
 			}
 
-			state.move = await player.getMove(state.chess.fen());
+			const move = await player.getMove(state.chess.fen());
+
+			if (state.timed
+				&& !(typeof state.move === 'undefined' && player.isHuman())) {
+				commit(`stop${color}Clock`);
+			}
+
+			commit('move', move);
 		},
 	},
 	getters: {
