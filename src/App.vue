@@ -57,7 +57,19 @@ export default {
 		MoveTable,
 	},
 	mounted() {
-		this.$store.dispatch('start')
+		const whiteOptions = {
+			name: 'Stockfish',
+			connection: 'local',
+			manager: 'UCI',
+			path: 'stockfish',
+		};
+		const blackOptions = {
+			name: 'Ethereal',
+			connection: 'local',
+			manager: 'UCI',
+			path: 'ethereal',
+		};
+		this.$store.dispatch('start', whiteOptions, blackOptions)
 		.then(() => {
 			this.boardReady = true;
 		})

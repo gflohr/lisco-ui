@@ -5,6 +5,7 @@ import Vuex from 'vuex';
 import Chess from 'chess.js';
 import TimeControl from './time-control';
 import Human from './players/human';
+import EnginePlayer from './players/engine-player';
 
 Vue.use(Vuex);
 
@@ -40,8 +41,11 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		start({ state }) {
+		start({ state }, whiteOptions, blackOptions) {
 			return new Promise((resolve, reject) => {
+				const whitePlayer = new EnginePlayer(whiteOptions);
+				const blackPlayer = new EnginePlayer(whiteOptions);
+				
 				state.started = true;
 
 				let whiteReady = false;
