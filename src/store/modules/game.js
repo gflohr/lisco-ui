@@ -23,6 +23,9 @@ export default {
 			const moveObject = state.chess.move(move);
 			if (moveObject === undefined) return null;
 
+			// FIXME! Allow long and short algebraic notation.
+			state.history.push(moveObject.san);
+
 			state.move = moveObject;
 		},
 		whitePlayer(state, player) {

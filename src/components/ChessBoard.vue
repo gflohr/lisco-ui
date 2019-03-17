@@ -8,6 +8,9 @@ import { Chessground } from 'chessground';
 import '../../public/chessground/chessground.css';
 import '../../public/chessground/theme.css';
 
+// FIXME! Remove the chessground component from here and put it into the global
+// state so that it is easier to manipulate.
+
 function resizeBoard() {
 	const body = document.getElementsByTagName('body')[0];
 	const bodyWidth = body.offsetWidth;
@@ -38,8 +41,13 @@ function resizeBoard() {
 
 export default {
 	name: 'ChessBoard',
-	props: ['ready'],
+	props: ['move', 'ready'],
 	watch: {
+		// FIXME! Remove this watcher!
+		move: function move(move) {
+			// FIXME! How can we promote pieces?
+			this.cg.move(move.from, move.to);
+		},
 		ready: function ready() {
 			if (this.ready) {
 				this.cg.set({

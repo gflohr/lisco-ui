@@ -19,7 +19,7 @@
 				<player-info piece-color="white" component-position="bottom"/>
 			</div>
 			<div class="board blue merida" id="board" ref="board">
-				<chess-board :ready="boardReady"/>
+				<chess-board :ready="boardReady" :move="move"/>
 			</div>
 			<div class="moves"><move-table/></div>
 			<div class="info-area">
@@ -49,6 +49,9 @@ export default {
 	data: function data() {
 		return {
 			boardReady: false,
+			// FIXME! This can be removed, when the chessground object is
+			// moved into the state store.
+			move: undefined,
 		};
 	},
 	components: {
@@ -91,6 +94,7 @@ export default {
 	},
 	watch: {
 		lastMove: function lastMoveChanged(move) {
+			this.move = move;
 			const chess = this.$store.state.game.chess;
 			if (chess.game_over()) {
 				// FIXME! Be more specific.
