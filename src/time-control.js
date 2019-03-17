@@ -45,7 +45,7 @@ export default function (moves, base, increment) {
 		++this.moves;
 		this.started = undefined;
 
-		if (this.move_per_tc > 0) {
+		if (this.moves_per_tc > 0) {
 			if (0 === (this.moves % this.moves_per_tc)) {
 				this.timeLeft += this.base;
 			}
