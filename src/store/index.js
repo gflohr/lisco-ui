@@ -3,9 +3,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Chess from 'chess.js';
-import TimeControl from './time-control';
-import Human from './players/human';
-import EnginePlayer from './players/engine-player';
+import TimeControl from '../time-control';
+import Human from '../players/human';
+import EnginePlayer from '../players/engine-player';
 
 Vue.use(Vuex);
 
