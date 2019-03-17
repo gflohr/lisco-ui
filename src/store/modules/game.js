@@ -1,47 +1,43 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-import Vue from 'vue';
-import Vuex from 'vuex';
 import Chess from 'chess.js';
-import TimeControl from '../time-control';
-import Human from '../players/human';
-import EnginePlayer from '../players/engine-player';
 
-import Game from './modules/game';
+import TimeControl from '../../time-control';
+import EnginePlayer from '../../players/engine-player';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-	modules: {
-		Game,
-	},
+export default {
+	namespaced: true,
 	state: {
 		chess: new Chess(),
-		live: true,
+		timed: true,
 		history: [],
-		boardFlipped: false,
-		whitePlayer: new Human({ color: 'w' }),
-		blackPlayer: new Human({ color: 'b' }),
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 		blackTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
 	},
 	mutations: {
 		move(state, options) {
 			const move = state.chess.move(options);
-			if (move === undefined) return;
+			if (move === undefined) return null;
 
 			const whiteOnMove = state.chess.turn() === 'w';
-			if (whiteOnMove) {
-				state.blackTimeControl.stop();
-				state.whiteTimeControl.start();
-				state.whitePlayer.requestMove();
-			} else {
-				state.whiteTimeControl.stop();
-				state.blackTimeControl.start();
-				state.blackPlayer.requestMove();
+
+			if (state.timed) {
+				if (whiteOnMove) {
+					state.blackTimeControl.stop();
+					state.whiteTimeControl.start();
+				} else {
+					state.whiteTimeControl.stop();
+					state.blackTimeControl.start();
+				}
 			}
 
-			state.history.push(move);
+			if (whiteOnMove) {
+				state.whitePlayer.requestMove();
+			} else {
+				state.whitePlayer.requestMove();
+			}
+
+			return move;
 		},
 	},
 	actions: {
@@ -56,9 +52,10 @@ export default new Vuex.Store({
 				state.blackPlayer.init(),
 			]);
 
-			state.whiteTimeControl.start();
+			if (!state.whitePlayer.isHuman()) {
+				state.whiteTimeControl.start();
+			}
 			await state.whitePlayer.requestMove();
-			state.whiteTimeControl.stop();
 		},
 	},
 	getters: {
@@ -83,4 +80,4 @@ export default new Vuex.Store({
 			return elapsed;
 		},
 	},
-});
+};
