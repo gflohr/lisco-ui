@@ -80,6 +80,7 @@ export default {
 
 			await this.$store.dispatch('game/move');
 		} catch (e) {
+			console.error(e);
 			alert(`Starting players failed: ${e}`);
 		}
 	},
