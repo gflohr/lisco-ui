@@ -1,8 +1,9 @@
 import ChessTools from 'chess-tools';
+import UCIEngine from '../engines/uci-engine';
 
 import AbstractPlayer from './abstract-player';
 
-const { Connection, Manager } = ChessTools.Engines;
+const { Connection } = ChessTools.Engines;
 
 export default class EnginePlayer extends AbstractPlayer {
 	constructor(options) {
@@ -24,7 +25,7 @@ export default class EnginePlayer extends AbstractPlayer {
 			}
 
 			if ('UCI' === this.managerType) {
-				this.manager = new Manager.UCI(this.connection, { ponder_timeout: 5000, name: this.name });
+				this.manager = new UCIEngine(this.connection, { ponder_timeout: 5000, name: this.name });
 			} else {
 				reject(new Error(`Unknown engine type '${this.managerType}'`));
 			}
