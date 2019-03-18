@@ -5,13 +5,11 @@ export default class WorkerConnection extends EventEmitter {
 		super();
 		this.worker = new Worker(path);
 		this.worker.addEventListener('message', (ev) => {
-			console.log("received message: " + ev.data);
 			this.onmessage(ev.data);
 		});
 	}
 		
 	postMessage(message) {
-		console.log("posting message " + message);
 		this.worker.postMessage(message);
 	}
 

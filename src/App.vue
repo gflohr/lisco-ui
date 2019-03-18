@@ -62,19 +62,19 @@ export default {
 	async mounted() {
 		try {
 			const options = {
-				white: {
-					color: 'w',
-					name: 'Stockfish',
-					connection: 'worker',
-					manager: 'UCI',
-					path: '/stockfish.js',
-				},
 				black: {
 					color: 'b',
-					name: 'Ethereal',
-					connection: 'local',
+					name: 'tomitankChess',
+					connection: 'worker',
 					manager: 'UCI',
-					path: 'ethereal',
+					path: '/tomitankChess.js',
+				},
+				white: {
+					color: 'w',
+					name: 'Lozza',
+					connection: 'worker',
+					manager: 'UCI',
+					path: '/lozza.js',
 				},
 			};
 			await this.$store.dispatch('game/start', options);

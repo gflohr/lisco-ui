@@ -1,6 +1,12 @@
 import UCIEngineManager from 'chess-tools/engines/uci';
 
 export default class UCIEngine extends UCIEngineManager {
+	constructor(engine, options) {
+		super(engine, options);
+
+		// FIXME! This should also be sent, when a new game is started.
+		this._sendMessage("ucinewgame");
+	}
 	async go(fen, options) {
 		return new Promise((resolve, reject) => {
 			const options_string = makeGoOptionsString(options);
