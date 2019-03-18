@@ -65,9 +65,9 @@ export default {
 				white: {
 					color: 'w',
 					name: 'Stockfish',
-					connection: 'local',
+					connection: 'worker',
 					manager: 'UCI',
-					path: 'stockfish',
+					path: '/stockfish.js',
 				},
 				black: {
 					color: 'b',

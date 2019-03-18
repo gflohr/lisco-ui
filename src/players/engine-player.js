@@ -1,5 +1,6 @@
 import ChessTools from 'chess-tools';
 import UCIEngine from '../engines/uci-engine';
+import WorkerConnection from '../connections/worker-connection.js';
 
 import AbstractPlayer from './abstract-player';
 
@@ -20,6 +21,11 @@ export default class EnginePlayer extends AbstractPlayer {
 					throw new Error("Local process connection requires 'path'");
 				}
 				this.connection = new Connection.LocalProcess(this.path);
+			} else if ('worker' === this.connectionType) {
+				if (typeof this.path === 'undefined') {
+					throw new Error("Worker connection requires 'path'");
+				}
+				this.connection = new WorkerConnection(this.path);
 			} else {
 				reject(new Error(`Unknown connection type '${this.connectionType}'`));
 			}

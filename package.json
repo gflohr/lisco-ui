@@ -22,7 +22,7 @@
     "fullname": "^3.3.0",
     "photonkit": "^0.1.2",
     "split.js": "^1.5.10",
-    "stockfish": "^10.0.0",
+    "stockfish.js": "^10.0.1",
     "username": "^4.1.0",
     "vue": "^2.6.6",
     "vue-chessboard": "^0.6.4",
