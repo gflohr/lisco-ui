@@ -74,10 +74,6 @@ export default {
 					manager: 'UCI',
 					path: '/lozza.js',
 				},
-				black: {
-					color: 'b',
-					type: 'human',
-				},
 			};
 			await this.$store.dispatch('game/start', options);
 			this.boardReady = true;
