@@ -11,6 +11,8 @@ export default {
 	state: {
 		chess: new Chess(),
 		timed: true,
+		// This is redundant. The same information is available via
+		// chess.history with the verbose flag.
 		history: [],
 		move: undefined,
 		whitePlayer: new HumanPlayer({ color: 'w' }),
@@ -77,7 +79,9 @@ export default {
 				commit(`start${color}Clock`);
 			}
 
-			const move = await player.getMove(state.chess.fen());
+			const move = await player.getMove(state.chess,
+											  state.whiteTimeControl,
+											  state.blackTimeControl);
 
 			if (state.timed
 				&& !(typeof state.move === 'undefined' && player.isHuman())) {

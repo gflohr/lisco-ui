@@ -25,7 +25,10 @@ export default class EnginePlayer extends AbstractPlayer {
 			}
 
 			if ('UCI' === this.managerType) {
-				this.manager = new UCIEngine(this.connection, { ponder_timeout: 5000, name: this.name });
+				this.manager = new UCIEngine(this.connection, {
+					ponder_timeout: 5000,
+					name: this.name
+			});
 			} else {
 				reject(new Error(`Unknown engine type '${this.managerType}'`));
 			}
@@ -36,8 +39,27 @@ export default class EnginePlayer extends AbstractPlayer {
 		});
 	}
 
-	async getMove(fen) {
-		const bestMove = await this.manager.ponderPosition(fen, {});
+	async getMove(chess, whiteTimeControl, blackTimeControl) {
+		const options = {
+			wtime: whiteTimeControl.timeLeft,
+			btime: blackTimeControl.timeLeft,
+		};
+
+		if (whiteTimeControl.increment > 0) {
+			options.winc = whiteTimeControl.increment;
+		}
+		if (blackTimeControl.increment > 0) {
+			options.winc = blackTimeControl.increment;
+		}
+		
+		const tc = chess.turn() === 'w' ? whiteTimeControl : blackTimeControl;
+		if (tc.moves_per_tc > 0) {
+			options.movestogo = (chess.history.length >> 1) % tc.moves_per_tc;
+		}
+
+		// FIXME! We should also allow a fixed time (then use ponderPosition)
+		// or a maximum depth.
+		const bestMove = await this.manager.go(chess.fen(), options);
 		const parts = bestMove.match(/^([a-h][1-8])([a-h][1-8])([qrbn])?$/);
 
 		if (parts === null) {
