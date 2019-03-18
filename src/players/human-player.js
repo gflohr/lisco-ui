@@ -27,8 +27,6 @@ export default class HumanPlayer extends AbstractPlayer {
 		});
 	}
 
-	// FIXME! Wait for signal!
 	async getMove() {
-		return 'e4';
 	}
 }

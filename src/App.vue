@@ -62,15 +62,13 @@ export default {
 	async mounted() {
 		try {
 			const options = {
-				black: {
-					color: 'b',
-					name: 'tomitankChess',
-					connection: 'worker',
-					manager: 'UCI',
-					path: '/tomitankChess.js',
-				},
 				white: {
 					color: 'w',
+					type: 'human',
+				},
+				black: {
+					color: 'b',
+					type: 'engine',
 					name: 'Lozza',
 					connection: 'worker',
 					manager: 'UCI',

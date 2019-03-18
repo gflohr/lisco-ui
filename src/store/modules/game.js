@@ -51,8 +51,22 @@ export default {
 	},
 	actions: {
 		async start({ commit }, options) {
-			const whitePlayer = new EnginePlayer(options.white);
-			const blackPlayer = new EnginePlayer(options.black);
+			let whitePlayer, blackPlayer;
+
+			if (options.white.type === 'human') {
+				whitePlayer = new HumanPlayer(options.white);
+			} else if (options.white.type === 'engine') {
+				whitePlayer = new EnginePlayer(options.white);
+			} else {
+				throw new Error(`unsupported player type ${options.white.type}`);
+			}
+			if (options.black.type === 'human') {
+				blackPlayer = new HumanPlayer(options.black);
+			} else if (options.black.type === 'engine') {
+				blackPlayer = new EnginePlayer(options.black);
+			} else {
+				throw new Error(`unsupported player type ${options.black.type}`);
+			}
 
 			await Promise.all([
 				whitePlayer.init(),
