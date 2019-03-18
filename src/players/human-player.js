@@ -11,6 +11,10 @@ export default class HumanPlayer extends AbstractPlayer {
 		this.chess = chess;
 	}
 
+	isHuman() {
+		return true;
+	}
+
 	init() {
 		return new Promise((resolve) => {
 			fullname().then((name) => {
