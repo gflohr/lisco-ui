@@ -34,7 +34,7 @@ export default class EnginePlayer extends AbstractPlayer {
 				this.manager = new UCIEngine(this.connection, {
 					ponder_timeout: 5000,
 					name: this.name
-			});
+				});
 			} else {
 				reject(new Error(`Unknown engine type '${this.managerType}'`));
 			}

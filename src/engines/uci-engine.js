@@ -7,6 +7,7 @@ export default class UCIEngine extends UCIEngineManager {
 		// FIXME! This should also be sent, when a new game is started.
 		this._sendMessage("ucinewgame");
 	}
+
 	async go(fen, options) {
 		return new Promise((resolve, reject) => {
 			const options_string = makeGoOptionsString(options);
