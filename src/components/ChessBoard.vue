@@ -42,23 +42,6 @@ function resizeBoard() {
 export default {
 	name: 'ChessBoard',
 	props: ['move', 'ready'],
-	watch: {
-		// FIXME! Remove this watcher!
-		move: function move(move) {
-			// FIXME! How can we promote pieces?
-			this.cg.move(move.from, move.to);
-		},
-		ready: function ready() {
-			if (this.ready) {
-				this.cg.set({
-					movable: {
-						color: this.turnColor(),
-						dests: this.toDests(),
-					},
-				});
-			}
-		},
-	},
 	methods: {
 		// Get the destination squares for a particular position.
 		toDests() {
@@ -72,6 +55,8 @@ export default {
 		},
 		playOtherSide() {
 			return (orig, dest) => {
+				console.log('playOtherSide called');
+				return;
 				this.$store.commit('move', { from: orig, to: dest });
 				// FIXME! That depends on the type of opponent!
 				this.cg.set({
@@ -97,14 +82,8 @@ export default {
 				dests: [],
 			},
 		});
-		this.cg.set({
-			movable: {
-				events: {
-					after: this.playOtherSide(),
-				},
-			},
-		});
 		window.onresize = resizeBoard;
+		this.$store.commit('game/chessground', this.cg);
 		resizeBoard();
 	},
 };

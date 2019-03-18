@@ -19,6 +19,7 @@
     "chess.js": "^0.10.2",
     "chessground": "^7.3.5",
     "electron": "^4.0.0",
+    "fsevents": "^1.2.7",
     "fullname": "^3.3.0",
     "photonkit": "^0.1.2",
     "split.js": "^1.5.10",

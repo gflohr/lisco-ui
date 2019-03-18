@@ -10,7 +10,9 @@ export default {
 	namespaced: true,
 	state: {
 		chess: new Chess(),
+		chessground: undefined,
 		timed: true,
+		move: undefined,
 		// This is redundant. The same information is available via
 		// chess.history with the verbose flag.
 		history: [],
@@ -27,8 +29,10 @@ export default {
 
 			// FIXME! Allow long and short algebraic notation.
 			state.history.push(moveObject);
-
-			state.move = moveObject;
+			state.move = move;
+		},
+		chessground(state, chessground) {
+			state.chessground = chessground;
 		},
 		whitePlayer(state, player) {
 			state.whitePlayer = player;
@@ -50,18 +54,20 @@ export default {
 		},
 	},
 	actions: {
-		async start({ commit }, options) {
+		async start({ commit, state }, options) {
 			let whitePlayer, blackPlayer;
 
 			if (options.white.type === 'human') {
-				whitePlayer = new HumanPlayer(options.white);
+				whitePlayer = new HumanPlayer(options.white,
+				                              state.chessground, state.chess);
 			} else if (options.white.type === 'engine') {
 				whitePlayer = new EnginePlayer(options.white);
 			} else {
 				throw new Error(`unsupported player type ${options.white.type}`);
 			}
 			if (options.black.type === 'human') {
-				blackPlayer = new HumanPlayer(options.black);
+				blackPlayer = new HumanPlayer(options.black,
+				                              state.chessground, state.chess);
 			} else if (options.black.type === 'engine') {
 				blackPlayer = new EnginePlayer(options.black);
 			} else {
@@ -96,7 +102,6 @@ export default {
 			const move = await player.getMove(state.chess,
 											  state.whiteTimeControl,
 											  state.blackTimeControl);
-
 			if (state.timed
 				&& !(typeof state.move === 'undefined' && player.isHuman())) {
 				commit(`stop${color}Clock`);
