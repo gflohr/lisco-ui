@@ -16,7 +16,6 @@ export default {
 		// This is redundant. The same information is available via
 		// chess.history with the verbose flag.
 		history: [],
-		move: undefined,
 		whitePlayer: new HumanPlayer({ color: 'w' }),
 		blackPlayer: new HumanPlayer({ color: 'b' }),
 		whiteTimeControl: new TimeControl(40, 5 * 60 * 1000, 0),
