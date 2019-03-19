@@ -2,7 +2,7 @@ import username from 'username';
 import fullname from 'fullname';
 
 import AbstractPlayer from './abstract-player';
-import { TouchBarColorPicker } from 'electron';
+import { ipcRenderer } from 'electron';
 
 export default class HumanPlayer extends AbstractPlayer {
 	constructor(options, chessground, chess) {
@@ -52,6 +52,7 @@ export default class HumanPlayer extends AbstractPlayer {
 			});
 	
 			const onMove = (from, to) => {
+				let promotion = false;
 				chessground.set({
 					turnColor: otherColor,
 					movable: {
@@ -60,7 +61,37 @@ export default class HumanPlayer extends AbstractPlayer {
 						free: false,
 					}
 				});
-				resolve({ from: from, to: to });
+
+				if (to.match(/[18]$/)) {
+					const piece = chess.get(from);
+					if (piece.type === 'p') {
+						promotion = true;
+					}
+				}
+
+				if (promotion) {
+					ipcRenderer.send('promotion-dialog');
+					ipcRenderer.once('promotion-piece', (event, button) => {
+						let piece;
+						switch(button) {
+							case 0:
+								piece = 'n';
+								break;
+							case 1:
+								piece = 'b';
+								break;
+							case 2:
+								piece = 'r';
+								break;
+							default:
+								piece = 'q';
+								break;
+						}
+						resolve({ from: from, to: to, promotion: piece });
+					});
+				} else {
+					resolve({ from: from, to: to });
+				}
 			};
 
 			chessground.set({

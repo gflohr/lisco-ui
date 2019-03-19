@@ -28,6 +28,11 @@ export default {
 			if (moveObject === undefined) return null;
 
 			state.chessground.move(move.from, move.to);
+			
+			if (typeof moveObject.promotion !== 'undefined') {
+				// Replaces the pawn with the piece it was promoted to.
+				state.chessground.set({ fen: state.chess.fen() });
+			}
 
 			state.history.push(moveObject);
 			state.move = move;

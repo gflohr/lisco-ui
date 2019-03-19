@@ -1,6 +1,6 @@
 
 
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron';
 import {
 	createProtocol,
 	installVueDevtools,
@@ -83,3 +83,16 @@ if (isDevelopment) {
 		});
 	}
 }
+
+ipcMain.on('promotion-dialog', (event) => {
+	const options = {
+		type: 'question',
+		buttons: ['Knight', 'Bishop', 'Rook', 'Queen'],
+		defaultId: 3,
+		title: 'Pawn Promotion',
+		message: 'What do you want the pawn to promote to?',
+	};
+	dialog.showMessageBox(null, options, (response) => {
+		event.sender.send('promotion-piece', response);
+	});
+});
