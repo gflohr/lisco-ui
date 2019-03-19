@@ -59,6 +59,33 @@ export default {
 		PlayerInfo,
 		MoveTable,
 	},
+	created() {
+		// Set default players.
+		this.$store.commit('setPlayer', {
+			type: 'human',
+		});
+		this.$store.commit('setPlayer', {
+			type: 'engine',
+			name: 'Lozza',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/lozza.js',
+		});
+		this.$store.commit('setPlayer', {
+			type: 'engine',
+			name: 'Stockfish.JS',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/stockfish.js',
+		});
+		this.$store.commit('setPlayer', {
+			type: 'engine',
+			name: 'tomitankChess',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/tomitankChess.js',
+		});
+	},
 	async mounted() {
 		try {
 			const options = {
@@ -73,10 +100,6 @@ export default {
 					connection: 'worker',
 					manager: 'UCI',
 					path: '/lozza.js',
-				},
-				black: {
-					color: 'b',
-					type: 'human',
 				},
 			};
 			await this.$store.dispatch('game/start', options);
