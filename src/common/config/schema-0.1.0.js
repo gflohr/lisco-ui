@@ -5,6 +5,7 @@ const schema = {
 	description: 'Lisco configuration',
 	type: 'object',
 	required: ['version', 'windowBounds'],
+	additionalProperties: false,
 	properties: {
 		version: {
 			description: 'Version of the configuration schema',
