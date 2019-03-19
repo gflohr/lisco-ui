@@ -5,6 +5,10 @@ import {
 	createProtocol,
 	installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib';
+import ConfigStore from './common/config/store';
+import Debug from 'debug';
+
+const debug = Debug('lisco:main');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -12,13 +16,22 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 // be closed automatically when the JavaScript object is garbage collected.
 const windows = {};
 
+const configStore = new ConfigStore({
+	// We'll call our data file 'user-preferences'
+	configName: 'settings',
+	defaults: {
+		windowBounds: { width: 800, height: 600 }
+	},
+})
+
 // Standard scheme must be registered before the app is ready
 protocol.registerStandardSchemes(['app'], { secure: true });
 function createWindow() {
 	// Create the browser window.
-	const geometry = isDevelopment ?
-			{ width: 1600, height: 600 } : { width: 800, height: 600 }
-	const win = new BrowserWindow(geometry);
+	const bounds = configStore.get('windowBounds');
+	debug("window bounds: %O", bounds);
+
+	const win = new BrowserWindow(bounds);
 	const id = Object.keys(windows).length;
 	windows[id] = win;
 
@@ -35,6 +48,11 @@ function createWindow() {
 	win.on('closed', () => {
 		delete windows[id];
 	});
+
+	win.on('resize', () => {
+		const { width, height } = win.getBounds();
+		configStore.set('windowBounds', { width: width, height: height });
+	})
 }
 
 // Quit when all windows are closed.

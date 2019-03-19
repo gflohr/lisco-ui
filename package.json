@@ -18,6 +18,8 @@
     "chess-tools": "^0.3.0",
     "chess.js": "^0.10.2",
     "chessground": "^7.3.5",
+    "compare-versions": "^3.4.0",
+    "debug": "^4.1.1",
     "electron": "^4.0.0",
     "fsevents": "^1.2.7",
     "fullname": "^3.3.0",
