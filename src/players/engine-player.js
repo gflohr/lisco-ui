@@ -78,7 +78,7 @@ export default class EnginePlayer extends AbstractPlayer {
 			to: parts[2],
 		};
 
-		if (typeof parts[2] !== 'undefined') moveObject.promotion = parts[2];
+		if (typeof parts[3] !== 'undefined') moveObject.promotion = parts[3];
 
 		return moveObject;
 	}
