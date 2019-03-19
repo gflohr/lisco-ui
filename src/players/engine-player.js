@@ -1,5 +1,5 @@
 import ChessTools from 'chess-tools';
-import UCIEngine from '../engines/uci-engine';
+import UCIEngine from '../protocols/uci';
 import WorkerConnection from '../connections/worker-connection.js';
 
 import AbstractPlayer from './abstract-player';
@@ -10,7 +10,7 @@ export default class EnginePlayer extends AbstractPlayer {
 	constructor(options) {
 		super(options);
 		this.connectionType = options.connection;
-		this.managerType = options.manager;
+		this.protocol = options.protocol;
 		this.path = options.path;
 	}
 
@@ -30,16 +30,16 @@ export default class EnginePlayer extends AbstractPlayer {
 				reject(new Error(`Unknown connection type '${this.connectionType}'`));
 			}
 
-			if ('UCI' === this.managerType) {
-				this.manager = new UCIEngine(this.connection, {
+			if ('UCI' === this.protocol) {
+				this.engine = new UCIEngine(this.connection, {
 					ponder_timeout: 5000,
 					name: this.name
 				});
 			} else {
-				reject(new Error(`Unknown engine type '${this.managerType}'`));
+				reject(new Error(`Unknown engine protocol '${this.protocol}'`));
 			}
 
-			this.manager.on('initialized', () => {
+			this.engine.on('initialized', () => {
 				resolve();
 			});
 		});
@@ -65,7 +65,7 @@ export default class EnginePlayer extends AbstractPlayer {
 
 		// FIXME! We should also allow a fixed time (then use ponderPosition)
 		// or a maximum depth.
-		const bestMove = await this.manager.go(chess.fen(), options);
+		const bestMove = await this.engine.go(chess.fen(), options);
 		const parts = bestMove.match(/^([a-h][1-8])([a-h][1-8])([qrbn])?$/);
 
 		if (parts === null) {

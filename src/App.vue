@@ -64,19 +64,19 @@ export default {
 		this.$store.commit('setEngine', {
 			name: 'Lozza',
 			connection: 'worker',
-			manager: 'uci',
+			protocol: 'uci',
 			path: '/lozza.js',
 		});
 		this.$store.commit('setEngine', {
 			name: 'Stockfish.JS',
 			connection: 'worker',
-			manager: 'uci',
+			protocol: 'uci',
 			path: '/stockfish.js',
 		});
 		this.$store.commit('setEngine', {
 			name: 'tomitankChess',
 			connection: 'worker',
-			manager: 'uci',
+			protocol: 'uci',
 			path: '/tomitankChess.js',
 		});
 		// Set default players.
@@ -108,7 +108,7 @@ export default {
 					type: 'engine',
 					name: 'Lozza',
 					connection: 'worker',
-					manager: 'UCI',
+					protocol: 'UCI',
 					path: '/lozza.js',
 				},
 			};
