@@ -54,8 +54,12 @@ function formatMove(move, long) {
 	}
 	retval += move.to;
 
+	if (move.promotion) {
+		retval += mapping[move.promotion];
+	}
+
 	// Steal all other signs from the SAN variant.
-	const info = move.san.replace(/.*[1-8qrbn]/, '');
+	const info = move.san.replace(/.*[1-8](?:=[QRBN])?/, '');
 
 	retval += info;
 
