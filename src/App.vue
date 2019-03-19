@@ -60,6 +60,25 @@ export default {
 		MoveTable,
 	},
 	created() {
+		// Set default engines.
+		this.$store.commit('setEngine', {
+			name: 'Lozza',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/lozza.js',
+		});
+		this.$store.commit('setEngine', {
+			name: 'Stockfish.JS',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/stockfish.js',
+		});
+		this.$store.commit('setEngine', {
+			name: 'tomitankChess',
+			connection: 'worker',
+			manager: 'uci',
+			path: '/tomitankChess.js',
+		});
 		// Set default players.
 		this.$store.commit('setPlayer', {
 			type: 'human',
@@ -67,23 +86,14 @@ export default {
 		this.$store.commit('setPlayer', {
 			type: 'engine',
 			name: 'Lozza',
-			connection: 'worker',
-			manager: 'uci',
-			path: '/lozza.js',
 		});
 		this.$store.commit('setPlayer', {
 			type: 'engine',
 			name: 'Stockfish.JS',
-			connection: 'worker',
-			manager: 'uci',
-			path: '/stockfish.js',
 		});
 		this.$store.commit('setPlayer', {
 			type: 'engine',
 			name: 'tomitankChess',
-			connection: 'worker',
-			manager: 'uci',
-			path: '/tomitankChess.js',
 		});
 	},
 	async mounted() {
