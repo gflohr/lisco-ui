@@ -11,33 +11,13 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run electron:serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Current State
 
-### Run your tests
-```
-npm run test
-```
+You can play a game against the Lozza chess engine. You can also play against Stockfish or tomitankChess (both included) but you have to modify the source code for it.
 
-### Lints and fixes files
-```
-npm run lint
-```
+## License 
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+GPL v3.0.
