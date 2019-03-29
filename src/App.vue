@@ -25,15 +25,8 @@
 			<div class="info-area">
 				<div class="toolbar"><h1 class="title">Information</h1></div>
 			</div>
-		<footer id="footer" class="footer toolbar toolbar-footer">
-				<div class="toolbar-actions">
-					<input id="fen" type="text" disabled="disabled"
-							size="120"
-							value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" />
-					<button class="btn btn-default">
-						Copy
-					</button>
-				</div>
+			<footer id="footer" class="footer toolbar toolbar-footer">
+				<position-display/>
 			</footer>
 		</div>
 	</div>
@@ -43,6 +36,7 @@
 import ChessBoard from './components/ChessBoard.vue';
 import PlayerInfo from './components/PlayerInfo.vue';
 import MoveTable from './components/MoveTable.vue';
+import PositionDisplay from './components/PositionDisplay.vue';
 
 export default {
 	name: 'app',
@@ -58,40 +52,41 @@ export default {
 		ChessBoard,
 		PlayerInfo,
 		MoveTable,
+		PositionDisplay,
 	},
 	created() {
 		// Set default engines.
-		this.$store.commit('setEngine', {
+		this.$store.commit('config/setEngine', {
 			name: 'Lozza',
 			connection: 'worker',
 			protocol: 'uci',
 			path: '/lozza.js',
 		});
-		this.$store.commit('setEngine', {
+		this.$store.commit('config/setEngine', {
 			name: 'Stockfish.JS',
 			connection: 'worker',
 			protocol: 'uci',
 			path: '/stockfish.js',
 		});
-		this.$store.commit('setEngine', {
+		this.$store.commit('config/setEngine', {
 			name: 'tomitankChess',
 			connection: 'worker',
 			protocol: 'uci',
 			path: '/tomitankChess.js',
 		});
 		// Set default players.
-		this.$store.commit('setPlayer', {
+		this.$store.commit('config/setPlayer', {
 			type: 'human',
 		});
-		this.$store.commit('setPlayer', {
+		this.$store.commit('config/setPlayer', {
 			type: 'engine',
 			name: 'Lozza',
 		});
-		this.$store.commit('setPlayer', {
+		this.$store.commit('config/setPlayer', {
 			type: 'engine',
 			name: 'Stockfish.JS',
 		});
-		this.$store.commit('setPlayer', {
+		this.$store.commit('config/setPlayer', {
 			type: 'engine',
 			name: 'tomitankChess',
 		});
@@ -131,10 +126,10 @@ export default {
 	watch: {
 		lastMove: function lastMoveChanged(move) {
 			this.move = move;
-			const chess = this.$store.state.game.chess;
+			const { chess } = this.$store.state.game;
 			if (chess.game_over()) {
 				// FIXME! Be more specific.
-				alert("Game over!");
+				alert('Game over!');
 				return;
 			}
 

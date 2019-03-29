@@ -8,10 +8,10 @@ export default {
 	},
 	mutations: {
 		setEngine(state, engine) {
-			engines[engine] = engine;
+			state.engines[engine] = engine;
 		},
 		setPlayer(state, player) {
-			players[player] = player;
+			state.players[player] = player;
 		},
 	},
 };
