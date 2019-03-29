@@ -1,8 +1,9 @@
 <template>
 	<div class="toolbar-actions">
 		<input id="fen" v-model="FEN" type="text" disabled="disabled"
-				size="120"/>
-		<button class="btn btn-default">
+				size="100"/>
+		<button class="btn btn-default"
+		        v-clipboard:copy="FEN">
 			Copy
 		</button>
 	</div>
