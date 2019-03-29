@@ -10,6 +10,7 @@ export default {
 	namespaced: true,
 	state: {
 		chess: new Chess(),
+		fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
 		chessground: undefined,
 		timed: true,
 		move: undefined,
@@ -28,13 +29,15 @@ export default {
 
 			state.chessground.move(move.from, move.to);
 			
+			const fen = state.chess.fen();
 			if (typeof moveObject.promotion !== 'undefined') {
 				// Replaces the pawn with the piece it was promoted to.
-				state.chessground.set({ fen: state.chess.fen() });
+				state.chessground.set({ fen: fen });
 			}
 
 			state.history.push(moveObject);
 			state.move = move;
+			state.fen = fen;
 		},
 		chessground(state, chessground) {
 			state.chessground = chessground;

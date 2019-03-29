@@ -1,8 +1,7 @@
 <template>
 	<div class="toolbar-actions">
-		<input id="fen" type="text" disabled="disabled"
-				size="120"
-				value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" />
+		<input id="fen" v-model="FEN" type="text" disabled="disabled"
+				size="120"/>
 		<button class="btn btn-default">
 			Copy
 		</button>
@@ -14,7 +13,7 @@ export default {
 	name: 'PositionDisplay',
 	computed: {
 		FEN: function FEN() {
-			return 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+			return this.$store.state.game.fen;
 		},
 	},
 };
