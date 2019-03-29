@@ -40,8 +40,7 @@ export default class ConfigValidator {
 				break;
 			}
 		}
-console.log(comparisons);
-console.log(versions);
+
 		// Now run all migrators and validators.
 		try {
 			for (let i = 0; i < versions.length; ++i) {
