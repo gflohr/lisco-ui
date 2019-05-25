@@ -52,7 +52,9 @@ function createWindow() {
 	win.on('resize', () => {
 		const { width, height } = win.getBounds();
 		configStore.set('windowBounds', { width: width, height: height });
-	})
+	});
+
+	require('./menu/mainmenu');
 }
 
 // Quit when all windows are closed.
