@@ -1,6 +1,6 @@
-# lisco
+# lisco-ui
 
-Lisco wants to be a cross-platform chess UI in the future.
+Lisco-UI wants to be a cross-platform chess UI in the future.
 
 ![Lisco Screenshot 2019-19-03](http://www.guido-flohr.net/assets/images/lisco/screenshot-2019-03-19.png)
 
