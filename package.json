@@ -21,7 +21,7 @@
     "compare-versions": "^3.4.0",
     "debug": "^4.1.1",
     "electron": "^18.3.7",
-    "fsevents": "^1.2.7",
+    "fsevents": "^2.2.1",
     "fullname": "^3.3.0",
     "photonkit": "^0.1.2",
     "split.js": "^1.5.10",
